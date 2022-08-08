@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xumama.mapper.CaidanMapper">
+  <resultMap id="BaseResultMap" type="com.example.xumama.entity.Caidan">
+    <!--@mbg.generated-->
+    <!--@Table caidan-->
+    <result column="caidan_date" jdbcType="DATE" property="caidanDate" />
+    <result column="caidan_zhucai" jdbcType="VARCHAR" property="caidanZhucai" />
+    <result column="caidan_qingcai" jdbcType="VARCHAR" property="caidanQingcai" />
+    <result column="caidan_peicai" jdbcType="VARCHAR" property="caidanPeicai" />
+    <result column="caidan_tangshui" jdbcType="VARCHAR" property="caidanTangshui" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    caidan_date, caidan_zhucai, caidan_qingcai, caidan_peicai, caidan_tangshui
+  </sql>
+  <insert id="insert" keyColumn="caidan_date" keyProperty="caidanDate" parameterType="com.example.xumama.entity.Caidan" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into caidan (caidan_zhucai, caidan_qingcai, caidan_peicai, 
+      caidan_tangshui)
+    values (#{caidanZhucai,jdbcType=VARCHAR}, #{caidanQingcai,jdbcType=VARCHAR}, #{caidanPeicai,jdbcType=VARCHAR}, 
+      #{caidanTangshui,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="caidan_date" keyProperty="caidanDate" parameterType="com.example.xumama.entity.Caidan" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into caidan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="caidanZhucai != null">
+        caidan_zhucai,
+      </if>
+      <if test="caidanQingcai != null">
+        caidan_qingcai,
+      </if>
+      <if test="caidanPeicai != null">
+        caidan_peicai,
+      </if>
+      <if test="caidanTangshui != null">
+        caidan_tangshui,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="caidanZhucai != null">
+        #{caidanZhucai,jdbcType=VARCHAR},
+      </if>
+      <if test="caidanQingcai != null">
+        #{caidanQingcai,jdbcType=VARCHAR},
+      </if>
+      <if test="caidanPeicai != null">
+        #{caidanPeicai,jdbcType=VARCHAR},
+      </if>
+      <if test="caidanTangshui != null">
+        #{caidanTangshui,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectCaidanToday" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from caidan c where c.caidan_date = CURDATE()
+    </select>
+</mapper>

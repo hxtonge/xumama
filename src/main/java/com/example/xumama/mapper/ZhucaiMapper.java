@@ -1,0 +1,25 @@
+package com.example.xumama.mapper;
+
+import com.example.xumama.entity.Zhucai;
+import org.springframework.stereotype.Repository;
+
+/**
+ *  ZhucaiMapper
+ *
+ *  @author zhangshun
+ *  @date 2022/8/8
+ */
+@Repository
+public interface ZhucaiMapper {
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Zhucai record);
+
+    int insertSelective(Zhucai record);
+
+    Zhucai selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(Zhucai record);
+
+    int updateByPrimaryKey(Zhucai record);
+}

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xumama.mapper.DingdanMapper">
+  <resultMap id="BaseResultMap" type="com.example.xumama.entity.Dingdan">
+    <!--@mbg.generated-->
+    <!--@Table dingdan-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dingdan_date" jdbcType="DATE" property="dingdanDate" />
+    <result column="dingdan_zhucai" jdbcType="VARCHAR" property="dingdanZhucai" />
+    <result column="dingdan_qingcai" jdbcType="VARCHAR" property="dingdanQingcai" />
+    <result column="dingdan_peicai" jdbcType="VARCHAR" property="dingdanPeicai" />
+    <result column="dingdan_tangshui" jdbcType="VARCHAR" property="dingdanTangshui" />
+    <result column="dingdan_user" jdbcType="VARCHAR" property="dingdanUser" />
+    <result column="dingdan_jiage" jdbcType="VARCHAR" property="dingdanJiage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, dingdan_date, dingdan_zhucai, dingdan_qingcai, dingdan_peicai, dingdan_tangshui, 
+    dingdan_user, dingdan_jiage
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from dingdan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from dingdan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.xumama.entity.Dingdan" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dingdan (dingdan_date, dingdan_zhucai, dingdan_qingcai, 
+      dingdan_peicai, dingdan_tangshui, dingdan_user, 
+      dingdan_jiage)
+    values (#{dingdanDate,jdbcType=DATE}, #{dingdanZhucai,jdbcType=VARCHAR}, #{dingdanQingcai,jdbcType=VARCHAR}, 
+      #{dingdanPeicai,jdbcType=VARCHAR}, #{dingdanTangshui,jdbcType=VARCHAR}, #{dingdanUser,jdbcType=VARCHAR}, 
+      #{dingdanJiage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.xumama.entity.Dingdan" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dingdan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dingdanDate != null">
+        dingdan_date,
+      </if>
+      <if test="dingdanZhucai != null">
+        dingdan_zhucai,
+      </if>
+      <if test="dingdanQingcai != null">
+        dingdan_qingcai,
+      </if>
+      <if test="dingdanPeicai != null">
+        dingdan_peicai,
+      </if>
+      <if test="dingdanTangshui != null">
+        dingdan_tangshui,
+      </if>
+      <if test="dingdanUser != null">
+        dingdan_user,
+      </if>
+      <if test="dingdanJiage != null">
+        dingdan_jiage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dingdanDate != null">
+        #{dingdanDate,jdbcType=DATE},
+      </if>
+      <if test="dingdanZhucai != null">
+        #{dingdanZhucai,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanQingcai != null">
+        #{dingdanQingcai,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanPeicai != null">
+        #{dingdanPeicai,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanTangshui != null">
+        #{dingdanTangshui,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanUser != null">
+        #{dingdanUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanJiage != null">
+        #{dingdanJiage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.xumama.entity.Dingdan">
+    <!--@mbg.generated-->
+    update dingdan
+    <set>
+      <if test="dingdanDate != null">
+        dingdan_date = #{dingdanDate,jdbcType=DATE},
+      </if>
+      <if test="dingdanZhucai != null">
+        dingdan_zhucai = #{dingdanZhucai,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanQingcai != null">
+        dingdan_qingcai = #{dingdanQingcai,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanPeicai != null">
+        dingdan_peicai = #{dingdanPeicai,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanTangshui != null">
+        dingdan_tangshui = #{dingdanTangshui,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanUser != null">
+        dingdan_user = #{dingdanUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dingdanJiage != null">
+        dingdan_jiage = #{dingdanJiage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.xumama.entity.Dingdan">
+    <!--@mbg.generated-->
+    update dingdan
+    set dingdan_date = #{dingdanDate,jdbcType=DATE},
+      dingdan_zhucai = #{dingdanZhucai,jdbcType=VARCHAR},
+      dingdan_qingcai = #{dingdanQingcai,jdbcType=VARCHAR},
+      dingdan_peicai = #{dingdanPeicai,jdbcType=VARCHAR},
+      dingdan_tangshui = #{dingdanTangshui,jdbcType=VARCHAR},
+      dingdan_user = #{dingdanUser,jdbcType=VARCHAR},
+      dingdan_jiage = #{dingdanJiage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
