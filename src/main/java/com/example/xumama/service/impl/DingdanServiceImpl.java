@@ -73,10 +73,9 @@ public class DingdanServiceImpl implements DingdanService {
             dingdan.setDingdanUser("zhangshun");
             //新增订单
             dingdanMapper.insert(dingdan);
+            return true;
         }else {
             throw new Exception("菜品不存在");
         }
-        return false;
     }
-
 }

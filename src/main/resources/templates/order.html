@@ -1,11 +1,51 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>订单页面</title>
 </head>
 <body>
-欢迎来单订单页面
-
+欢迎下单
+<form th:action="@{/addOrder}" method="POST">
+    <label>主菜:
+        <select name="zhucai" >
+            <option selected hidden disabled value="">选择主菜</option>
+            <option th:each="item:${zhucais}" th:value="${item.id}"
+                    th:text="${item.name}">
+            </option>
+        </select>
+    </label>
+    <label>青菜:
+        <select name="qingcai" >
+            <option selected hidden disabled value="">选择青菜</option>
+            <option th:each="item:${qingcais}" th:value="${item.id}"
+                    th:text="${item.name}">
+            </option>
+        </select>
+    </label>
+    <label>配菜:
+        <select name="peicai" >
+            <option selected hidden disabled value="">选择配菜</option>
+            <option th:each="item:${peicais}" th:value="${item.id}"
+                    th:text="${item.name}">
+            </option>
+        </select>
+    </label>
+    <label>糖水:
+        <select name="tangshui" >
+            <option selected hidden disabled value="">选择糖水</option>
+            <option th:each="item:${tangshuis}" th:value="${item.id}"
+                    th:text="${item.name}">
+            </option>
+        </select>
+    </label></br>
+    <input type="submit" value="提交订单"/>
+</form>
+</br>
+</br>
+</br>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="注销登录"/>
+</form>
 </body>
 </html>
