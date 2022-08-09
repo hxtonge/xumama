@@ -3,6 +3,8 @@ package com.example.xumama.mapper;
 import com.example.xumama.entity.Zhucai;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  *  ZhucaiMapper
  *
@@ -22,4 +24,6 @@ public interface ZhucaiMapper {
     int updateByPrimaryKeySelective(Zhucai record);
 
     int updateByPrimaryKey(Zhucai record);
+
+    List<Zhucai> selectAll();
 }

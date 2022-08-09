@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>异常</title>
+</head>
+<body>
+<div th:text="${err_msg}"></div>
+<form th:action="@{/order}" method="POST">
+    <input type="submit" value="返回首页"/>
+</form>
+</body>
+</html>

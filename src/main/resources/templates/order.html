@@ -6,44 +6,57 @@
 </head>
 <body>
 欢迎下单
-<form th:action="@{/addOrder}" method="POST">
-    <label>主菜:
-        <select name="zhucai" >
-            <option selected hidden disabled value="">选择主菜</option>
-            <option th:each="item:${zhucais}" th:value="${item.id}"
-                    th:text="${item.name}">
-            </option>
-        </select>
-    </label>
-    <label>青菜:
-        <select name="qingcai" >
-            <option selected hidden disabled value="">选择青菜</option>
-            <option th:each="item:${qingcais}" th:value="${item.id}"
-                    th:text="${item.name}">
-            </option>
-        </select>
-    </label>
-    <label>配菜:
-        <select name="peicai" >
-            <option selected hidden disabled value="">选择配菜</option>
-            <option th:each="item:${peicais}" th:value="${item.id}"
-                    th:text="${item.name}">
-            </option>
-        </select>
-    </label>
-    <label>糖水:
-        <select name="tangshui" >
-            <option selected hidden disabled value="">选择糖水</option>
-            <option th:each="item:${tangshuis}" th:value="${item.id}"
-                    th:text="${item.name}">
-            </option>
-        </select>
-    </label></br>
-    <input type="submit" value="提交订单"/>
-</form>
+<div th:if="${isAdmin} == 'N'">
+    <div th:if="${announcement} != null">
+        <p th:text="${announcement}"></p>
+    </div>
+</div>
+<div th:if="${announcement} == null">
+    <form th:action="@{/addOrder}" method="POST">
+        <label>主菜:
+            <select name="zhucai" >
+                <option selected hidden disabled value="">选择主菜</option>
+                <option th:each="item:${zhucais}" th:value="${item.id}"
+                        th:text="${item.name}">
+                </option>
+            </select>
+        </label>
+        <label>青菜:
+            <select name="qingcai" >
+                <option selected hidden disabled value="">选择青菜</option>
+                <option th:each="item:${qingcais}" th:value="${item.id}"
+                        th:text="${item.name}">
+                </option>
+            </select>
+        </label>
+        <label>配菜:
+            <select name="peicai" >
+                <option selected hidden disabled value="">选择配菜</option>
+                <option th:each="item:${peicais}" th:value="${item.id}"
+                        th:text="${item.name}">
+                </option>
+            </select>
+        </label>
+        <label>糖水:
+            <select name="tangshui" >
+                <option selected hidden disabled value="">选择糖水</option>
+                <option th:each="item:${tangshuis}" th:value="${item.id}"
+                        th:text="${item.name}">
+                </option>
+            </select>
+        </label></br>
+        <input type="submit" value="提交订单"/>
+    </form>
+</div>
 </br>
-</br>
-</br>
+<div th:if="${isAdmin} == 'Y'">
+    <div th:if="${announcement} != null">
+        <p>今日还未制定菜单</p>
+        <form th:action="@{/caidan}" method="POST">
+            <input type="submit" value="点此制定菜单"/>
+        </form>
+    </div>
+</div>
 <form th:action="@{/logout}" method="POST">
     <input type="submit" value="注销登录"/>
 </form>

@@ -1,5 +1,7 @@
 package com.example.xumama.service;
 
+import com.example.xumama.entity.User;
+
 /**
  * UserService
  *
@@ -16,4 +18,6 @@ public interface UserService {
      * @author zhangShun 2022/8/8
      */
     boolean login(String username, String password);
+
+    User getUser(String username);
 }

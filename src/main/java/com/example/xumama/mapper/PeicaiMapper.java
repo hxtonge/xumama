@@ -3,6 +3,8 @@ package com.example.xumama.mapper;
 import com.example.xumama.entity.Peicai;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  *  PeicaiMapper
  *
@@ -22,4 +24,6 @@ public interface PeicaiMapper {
     int updateByPrimaryKeySelective(Peicai record);
 
     int updateByPrimaryKey(Peicai record);
+
+    List<Peicai> selectAll();
 }

@@ -3,6 +3,8 @@ package com.example.xumama.mapper;
 import com.example.xumama.entity.Qingcai;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  *  QingcaiMapper
  *
@@ -22,4 +24,6 @@ public interface QingcaiMapper {
     int updateByPrimaryKeySelective(Qingcai record);
 
     int updateByPrimaryKey(Qingcai record);
+
+    List<Qingcai> selectAll();
 }

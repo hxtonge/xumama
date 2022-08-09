@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>今日菜单</title>
+</head>
+<body>
+<div th:if="${hasCaidan} == 'Y'">
+    <p>今日菜单如下</p>
+    <div>
+        主菜: <div th:each="item:${jinrizhucais}" th:text="${item.name+' '+item.jiage+'元'}"></div> <br>
+        青菜: <div th:each="item:${jinriqingcais}" th:text="${item.name}"></div> <br>
+        配菜: <div th:each="item:${jinripeicais}" th:text="${item.name}"></div> <br>
+        糖水: <div th:each="item:${jinritangshuis}" th:text="${item.name+' '+item.jiage+'元'}"></div> <br>
+    </div>
+</div>
+<div th:if="${hasCaidan} == 'N'">
+    <p>请制定今日菜单</p>
+    <form th:action="@{/addCaidan}" method="POST">
+        <label><input th:each="item:${zhucais}" th:text="${item.name+' '+item.jiage+'元'} type="checkbox" thP:value="${}" /></label>
+        <input type="submit" value="确定"/>
+    </form>
+</div>
+</body>
+</html>

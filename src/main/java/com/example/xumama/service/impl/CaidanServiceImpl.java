@@ -121,4 +121,24 @@ public class CaidanServiceImpl implements CaidanService {
             return null;
         }
     }
+
+    /**
+     * 获取所有菜单
+     *
+     * @return 返回结果
+     * @author zhangShun 2022/8/9
+     */
+    @Override
+    public CaidanVo getAllCaidan() {
+        List<Zhucai> zhucais = zhucaiMapper.selectAll();
+        List<Qingcai> qingcais = qingcaiMapper.selectAll();
+        List<Peicai> peicais = peicaiMapper.selectAll();
+        List<Tangshui> tangshuis = tangshuiMapper.selectAll();
+        CaidanVo caidanVo = new CaidanVo();
+        caidanVo.setZhucais(zhucais);
+        caidanVo.setQingcais(qingcais);
+        caidanVo.setPeicais(peicais);
+        caidanVo.setTangshuis(tangshuis);
+        return caidanVo;
+    }
 }

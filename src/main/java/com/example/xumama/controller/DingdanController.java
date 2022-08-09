@@ -4,6 +4,8 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.xumama.entity.Caidan;
 import com.example.xumama.entity.Dingdan;
+import com.example.xumama.entity.User;
+import com.example.xumama.service.CaidanService;
 import com.example.xumama.service.DingdanService;
 import com.example.xumama.vo.CaidanVo;
 import lombok.extern.slf4j.Slf4j;
@@ -24,21 +26,35 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DingdanController {
 
     private DingdanService dingdanService;
+    private CaidanService caidanService;
 
     @Autowired
     public void setDingdanService(DingdanService dingdanService) {
         this.dingdanService = dingdanService;
     }
 
+    @Autowired
+    public void setCaidanService(CaidanService caidanService) {
+        this.caidanService = caidanService;
+    }
+
     @RequestMapping("order")
     @SaCheckLogin
-    public String order(Model model) throws Exception {
-        CaidanVo caidanVo = (CaidanVo) StpUtil.getSession().get("caidan");
-        model.addAttribute("zhucais",caidanVo.getZhucais());
-        model.addAttribute("qingcais",caidanVo.getQingcais());
-        model.addAttribute("peicais",caidanVo.getPeicais());
-        model.addAttribute("tangshuis",caidanVo.getTangshuis());
-        log.info("order => {}, caidan : {}", StpUtil.getLoginId(),caidanVo);
+    public String order(Model model) {
+        User user = (User) StpUtil.getSession().get("user");
+        if(user != null){
+            model.addAttribute("isAdmin",user.getIsAdmin());
+        }
+        CaidanVo caidanVo = caidanService.getCaidan();//获得今日菜单
+        if(caidanVo != null){
+            model.addAttribute("zhucais",caidanVo.getZhucais());
+            model.addAttribute("qingcais",caidanVo.getQingcais());
+            model.addAttribute("peicais",caidanVo.getPeicais());
+            model.addAttribute("tangshuis",caidanVo.getTangshuis());
+            log.info("order => {}, caidan : {}", StpUtil.getLoginId(),caidanVo);
+        }else {
+            model.addAttribute("announcement","管理员暂未配置今日菜单,请联系管理员");
+        }
         return "order";
     }
     //下订单

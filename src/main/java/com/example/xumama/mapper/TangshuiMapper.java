@@ -3,6 +3,8 @@ package com.example.xumama.mapper;
 import com.example.xumama.entity.Tangshui;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  *  TangshuiMapper
  *
@@ -22,4 +24,6 @@ public interface TangshuiMapper {
     int updateByPrimaryKeySelective(Tangshui record);
 
     int updateByPrimaryKey(Tangshui record);
+
+    List<Tangshui> selectAll();
 }
