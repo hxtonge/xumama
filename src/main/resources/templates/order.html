@@ -2,10 +2,14 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>订单页面</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{css/bootstrap-theme.min.css}">
 </head>
 <body>
-欢迎下单
+<h2 style="text-align:center">欢迎下单</h2>
 <div th:if="${isAdmin} == 'N'">
     <div th:if="${announcement} != null">
         <p th:text="${announcement}"></p>
@@ -13,51 +17,52 @@
 </div>
 <div th:if="${announcement} == null">
     <form th:action="@{/addOrder}" method="POST">
-        <label>主菜:
-            <select name="zhucai" >
+        <div>
+            <select name="zhucai" class="form-select" aria-label="Default select example">
                 <option selected hidden disabled value="">选择主菜</option>
                 <option th:each="item:${zhucais}" th:value="${item.id}"
                         th:text="${item.name}">
                 </option>
             </select>
-        </label>
-        <label>青菜:
-            <select name="qingcai" >
+        </div>
+        <div>
+            <select name="qingcai" class="form-select" aria-label="Default select example">
                 <option selected hidden disabled value="">选择青菜</option>
                 <option th:each="item:${qingcais}" th:value="${item.id}"
                         th:text="${item.name}">
                 </option>
             </select>
-        </label>
-        <label>配菜:
-            <select name="peicai" >
+        </div>
+        <div>
+            <select name="peicai" class="form-select" aria-label="Default select example">
                 <option selected hidden disabled value="">选择配菜</option>
                 <option th:each="item:${peicais}" th:value="${item.id}"
                         th:text="${item.name}">
                 </option>
             </select>
-        </label>
+        </div>
         <div th:if="${tangshuis != null}">
-            <label>糖水:
-                <select name="tangshui" >
+            <div>
+                <select name="tangshui" class="form-select" aria-label="Default select example">
                     <option selected hidden disabled value="">选择糖水</option>
                     <option th:each="item:${tangshuis}" th:value="${item.id}"
                             th:text="${item.name}">
                     </option>
                 </select>
-            </label></br>
+            </div>
         </div>
         <label>是否加辣
             <input type="checkbox" name="la" value="Y" text="加辣">
-        </label></br>
-        <input type="submit" value="提交订单"/>
+        </label>
+        <div style="text-align:center">
+            <button type="submit" class="btn btn-primary">提交订单</button>
+        </div>
     </form>
 </div>
 </br>
 <div th:if="${dingdans != null && dingdans.size()>0}">
-    我的订单
-
-        <table>
+    <h3 style="text-align:center">我的订单</h3>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>主菜</th>
@@ -78,27 +83,31 @@
                     <td>
                         <form th:action="@{/deleteOrder}" method="POST">
                             <input type="hidden" name="id" th:value="${dingdan.id}">
-                            <input type="submit"  value="删除">
+                            <button type="submit" class="btn btn-danger">删除</button>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
 </div>
-</br>
 <div th:if="${isAdmin} == 'Y'">
-    <div th:if="${announcement} != null">
+    <div style="text-align:center" th:if="${announcement} != null">
         <p>今日还未制定菜单,请使用菜单管理定制菜单</p>
     </div>
-    <form th:action="@{/caidan}" method="POST">
-        <input type="submit" value="菜单管理"/>
+    <div style="text-align:center">
+        <form th:action="@{/caidan}" method="POST">
+            <button type="submit" class="btn btn-primary">菜单管理</button>
+        </form>
+    </div>
+</div>
+<br>
+<div>
+    <form th:action="@{/logout}" method="POST">
+        <button type="submit" class="btn btn-primary">注销登录</button>
+    </form>
+    <form th:action="@{/updatePassword}" method="POST">
+        <button type="submit" class="btn btn-warning">修改密码</button>
     </form>
 </div>
-<form th:action="@{/logout}" method="POST">
-    <input type="submit" value="注销登录"/>
-</form>
-<form th:action="@{/updatePassword}" method="POST">
-    <input type="submit" value="修改密码"/>
-</form>
 </body>
 </html>

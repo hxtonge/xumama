@@ -2,19 +2,31 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>登录</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{css/signin.css}">
 </head>
 <body>
-<form th:action="@{/doLogin}" method="POST">
-    <label>用户名:
-        <input type="text" name="username" value="" /><br/>
-    </label>
 
-    <label>密码:
-        <input type="password" name="password" value="" /> <br/>
-    </label>
+<div class="container">
+    <form class="form-signin" th:action="@{/doLogin}" method="POST">
+        <h2 class="form-signin-heading">徐妈妈欢迎你</h2>
+        <div class="mb-3">
+            <label for="username" class="form-label">用户名</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名"/>
+        </div>
 
-    <input type="submit" value="登录"/>
-</form>
+        <div class="mb-3">
+            <label for="password" class="form-label">密码</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"/>
+        </div>
+        <div style="text-align:center">
+            <button type="submit" class="btn btn-primary">登录</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>
