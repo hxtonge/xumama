@@ -16,9 +16,9 @@
   </sql>
   <insert id="insert" keyColumn="caidan_date" keyProperty="caidanDate" parameterType="com.example.xumama.entity.Caidan" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into caidan (caidan_zhucai, caidan_qingcai, caidan_peicai, 
+    insert into caidan (caidan_date,caidan_zhucai, caidan_qingcai, caidan_peicai,
       caidan_tangshui)
-    values (#{caidanZhucai,jdbcType=VARCHAR}, #{caidanQingcai,jdbcType=VARCHAR}, #{caidanPeicai,jdbcType=VARCHAR}, 
+    values (#{caidanDate,jdbcType=DATE},#{caidanZhucai,jdbcType=VARCHAR}, #{caidanQingcai,jdbcType=VARCHAR}, #{caidanPeicai,jdbcType=VARCHAR},
       #{caidanTangshui,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="caidan_date" keyProperty="caidanDate" parameterType="com.example.xumama.entity.Caidan" useGeneratedKeys="true">

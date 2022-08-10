@@ -12,6 +12,7 @@ import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -63,4 +64,19 @@ public class UserController {
         StpUtil.logout();
         return "login";
     }
+
+    @PostMapping("/updatePassword")
+    @SaCheckLogin
+    public String updatePassword(){
+        return "updatePassword";
+    }
+
+    @PostMapping("/updateMyPassword")
+    @SaCheckLogin
+    public String updateMyPassword(String password){
+        userService.updateMyPassword(StpUtil.getLoginId(),password);
+        StpUtil.logout();
+        return "redirect:/";
+    }
+
 }

@@ -12,11 +12,19 @@ import com.example.xumama.mapper.QingcaiMapper;
 import com.example.xumama.mapper.TangshuiMapper;
 import com.example.xumama.mapper.ZhucaiMapper;
 import com.example.xumama.service.CaidanService;
+import com.example.xumama.util.DateUtil;
 import com.example.xumama.vo.CaidanVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +34,7 @@ import java.util.List;
  * @date 2022/8/8
  */
 @Service
+@Slf4j
 public class CaidanServiceImpl implements CaidanService {
 
     private CaidanMapper caidanMapper;
@@ -140,5 +149,32 @@ public class CaidanServiceImpl implements CaidanService {
         caidanVo.setPeicais(peicais);
         caidanVo.setTangshuis(tangshuis);
         return caidanVo;
+    }
+
+    @Override
+    public void addCaidan(String[] zhucai, String[] qingcai, String[] peicai, String[] tangshui) {
+        Caidan caidan = new Caidan();
+        caidan.setCaidanDate(DateUtil.getDate());
+        caidan.setCaidanZhucai(formatting(zhucai));
+        caidan.setCaidanQingcai(formatting(qingcai));
+        caidan.setCaidanPeicai(formatting(peicai));
+        caidan.setCaidanTangshui(formatting(tangshui));
+        log.info("addCaidan =>> {}" ,caidan);
+        caidanMapper.insert(caidan);
+    }
+
+    private String formatting(String[] cai) {
+        if(cai != null && cai.length>0){
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String str : cai){
+                if(stringBuilder.length()>0){
+                    stringBuilder.append(";");
+                }
+                stringBuilder.append(str);
+            }
+            return stringBuilder.toString();
+        }else {
+            return null;
+        }
     }
 }

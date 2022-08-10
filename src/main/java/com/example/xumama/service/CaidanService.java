@@ -23,4 +23,6 @@ public interface CaidanService {
      * @author zhangShun 2022/8/9
      */
     CaidanVo getAllCaidan();
+
+    void addCaidan(String[] zhucai, String[] qingcai, String[] peicai, String[] tangshui);
 }

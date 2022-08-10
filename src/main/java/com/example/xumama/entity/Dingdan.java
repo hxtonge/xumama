@@ -23,6 +23,14 @@ public class Dingdan {
 
     private String dingdanTangshui;
 
+    private String zhucaiName;
+
+    private String qingcaiName;
+
+    private String peicaiName;
+
+    private String tangshuiName;
+
     private String dingdanUser;
 
     private Integer dingdanJiage;

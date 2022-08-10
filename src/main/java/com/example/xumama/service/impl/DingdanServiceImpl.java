@@ -1,5 +1,7 @@
 package com.example.xumama.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.util.StrUtil;
 import com.example.xumama.entity.Dingdan;
 import com.example.xumama.entity.Tangshui;
 import com.example.xumama.entity.Zhucai;
@@ -7,6 +9,7 @@ import com.example.xumama.mapper.DingdanMapper;
 import com.example.xumama.mapper.TangshuiMapper;
 import com.example.xumama.mapper.ZhucaiMapper;
 import com.example.xumama.service.DingdanService;
+import com.example.xumama.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * DingdanService
@@ -59,16 +64,18 @@ public class DingdanServiceImpl implements DingdanService {
     public boolean addOrder(Dingdan dingdan) throws Exception {
         //查询主菜和糖水价格
         Zhucai zhucai = zhucaiMapper.selectByPrimaryKey(Integer.parseInt(dingdan.getDingdanZhucai()));
-        Tangshui tangshui = tangshuiMapper.selectByPrimaryKey(Integer.parseInt(dingdan.getDingdanTangshui()));
-        if(zhucai != null && tangshui != null){
+        Tangshui tangshui = null;
+        if(StrUtil.isNotBlank(dingdan.getDingdanTangshui())){
+            tangshui = tangshuiMapper.selectByPrimaryKey(Integer.parseInt(dingdan.getDingdanTangshui()));
+        }
+        if(zhucai != null){
             int zhucaiJiage = Integer.parseInt(zhucai.getJiage());
-            int tangshuiJiage = Integer.parseInt(tangshui.getJiage());
+            int tangshuiJiage = 0;
+            if(tangshui != null){
+                tangshuiJiage = Integer.parseInt(tangshui.getJiage());
+            }
             dingdan.setDingdanJiage(zhucaiJiage+tangshuiJiage);
-            //获取今日日期
-            LocalDate date = LocalDate.now();
-            LocalDateTime localDateTime = LocalDateTime.of(date, LocalTime.of(0,0,0));
-            Date date1 = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-            dingdan.setDingdanDate(date1);
+            dingdan.setDingdanDate(DateUtil.getDate());
             //添加用户
             dingdan.setDingdanUser("zhangshun");
             //新增订单
@@ -77,5 +84,16 @@ public class DingdanServiceImpl implements DingdanService {
         }else {
             throw new Exception("菜品不存在");
         }
+    }
+
+    @Override
+    public List<Dingdan> getDingdan() {
+        String userId = (String) StpUtil.getLoginId();
+        return dingdanMapper.selectToDay(userId,DateUtil.getDate());
+    }
+
+    @Override
+    public void deleteOrder(String id) {
+        dingdanMapper.deleteByPrimaryKey(Integer.valueOf(id));
     }
 }

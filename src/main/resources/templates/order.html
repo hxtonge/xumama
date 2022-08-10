@@ -37,28 +37,68 @@
                 </option>
             </select>
         </label>
-        <label>糖水:
-            <select name="tangshui" >
-                <option selected hidden disabled value="">选择糖水</option>
-                <option th:each="item:${tangshuis}" th:value="${item.id}"
-                        th:text="${item.name}">
-                </option>
-            </select>
+        <div th:if="${tangshuis != null}">
+            <label>糖水:
+                <select name="tangshui" >
+                    <option selected hidden disabled value="">选择糖水</option>
+                    <option th:each="item:${tangshuis}" th:value="${item.id}"
+                            th:text="${item.name}">
+                    </option>
+                </select>
+            </label></br>
+        </div>
+        <label>是否加辣
+            <input type="checkbox" name="la" value="Y" text="加辣">
         </label></br>
         <input type="submit" value="提交订单"/>
     </form>
 </div>
 </br>
+<div th:if="${dingdans != null && dingdans.size()>0}">
+    我的订单
+
+        <table>
+            <thead>
+                <tr>
+                    <th>主菜</th>
+                    <th>青菜</th>
+                    <th>配菜</th>
+                    <th>糖水</th>
+                    <th>是否加辣</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="dingdan:${dingdans}">
+                    <td th:text="${dingdan.zhucaiName}"></td>
+                    <td th:text="${dingdan.qingcaiName}"></td>
+                    <td th:text="${dingdan.peicaiName}"></td>
+                    <td th:text="${dingdan.tangshuiName}"></td>
+                    <td th:text="${dingdan.tangshuiName}"></td>
+                    <td>
+                        <form th:action="@{/deleteOrder}" method="POST">
+                            <input type="hidden" name="id" th:value="${dingdan.id}">
+                            <input type="submit"  value="删除">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+</br>
 <div th:if="${isAdmin} == 'Y'">
     <div th:if="${announcement} != null">
-        <p>今日还未制定菜单</p>
-        <form th:action="@{/caidan}" method="POST">
-            <input type="submit" value="点此制定菜单"/>
-        </form>
+        <p>今日还未制定菜单,请使用菜单管理定制菜单</p>
     </div>
+    <form th:action="@{/caidan}" method="POST">
+        <input type="submit" value="菜单管理"/>
+    </form>
 </div>
 <form th:action="@{/logout}" method="POST">
     <input type="submit" value="注销登录"/>
+</form>
+<form th:action="@{/updatePassword}" method="POST">
+    <input type="submit" value="修改密码"/>
 </form>
 </body>
 </html>

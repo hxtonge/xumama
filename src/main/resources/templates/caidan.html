@@ -11,13 +11,50 @@
         主菜: <div th:each="item:${jinrizhucais}" th:text="${item.name+' '+item.jiage+'元'}"></div> <br>
         青菜: <div th:each="item:${jinriqingcais}" th:text="${item.name}"></div> <br>
         配菜: <div th:each="item:${jinripeicais}" th:text="${item.name}"></div> <br>
-        糖水: <div th:each="item:${jinritangshuis}" th:text="${item.name+' '+item.jiage+'元'}"></div> <br>
+        糖水: <div th:if="${tangshuis != null}" th:each="item:${jinritangshuis}" th:text="${item.name+' '+item.jiage+'元'}"></div> <br>
     </div>
+    <form th:action="@{/order}" method="POST">
+        <input type="submit" value="去下单"/>
+    </form>
 </div>
 <div th:if="${hasCaidan} == 'N'">
     <p>请制定今日菜单</p>
     <form th:action="@{/addCaidan}" method="POST">
-        <label><input th:each="item:${zhucais}" th:text="${item.name+' '+item.jiage+'元'} type="checkbox" thP:value="${}" /></label>
+
+        <div>
+            <ul>
+                <li th:each="zs:${zhucais}">
+                    <input type="checkbox"
+                           name="zhucai"
+                           th:value="${zs.id}"
+                           th:text="${zs.name+' '+zs.jiage+'元'}"/>
+                </li>
+            </ul>
+            <ul>
+                <li th:each="qc:${qingcais}">
+                    <input type="checkbox"
+                           name="qingcai"
+                           th:value="${qc.id}"
+                           th:text="${qc.name}"/>
+                </li>
+            </ul>
+            <ul>
+                <li th:each="pc:${peicais}">
+                    <input type="checkbox"
+                           name="peicai"
+                           th:value="${pc.id}"
+                           th:text="${pc.name}"/>
+                </li>
+            </ul>
+            <ul>
+                <li th:each="ts:${tangshuis}">
+                    <input type="checkbox"
+                           name="tangshui"
+                           th:value="${ts.id}"
+                           th:text="${ts.name+' '+ts.jiage+'元'}"/>
+                </li>
+            </ul>
+        </div>
         <input type="submit" value="确定"/>
     </form>
 </div>

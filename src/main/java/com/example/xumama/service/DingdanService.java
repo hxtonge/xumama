@@ -2,6 +2,8 @@ package com.example.xumama.service;
 
 import com.example.xumama.entity.Dingdan;
 
+import java.util.List;
+
 /**
  * DingdanService
  *
@@ -18,4 +20,8 @@ public interface DingdanService {
      * @author zhangShun 2022/8/8
      */
     boolean addOrder(Dingdan dingdan) throws Exception;
+
+    List<Dingdan> getDingdan();
+
+    void deleteOrder(String id);
 }

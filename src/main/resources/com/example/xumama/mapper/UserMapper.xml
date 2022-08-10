@@ -93,10 +93,8 @@
   <update id="updateByPrimaryKey" parameterType="com.example.xumama.entity.User">
     <!--@mbg.generated-->
     update `user`
-    set `name` = #{name,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
-      ip = #{ip,jdbcType=VARCHAR},
-      is_admin = #{isAdmin,jdbcType=VARCHAR}
+    set
+      `password` = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

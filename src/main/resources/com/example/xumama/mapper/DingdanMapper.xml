@@ -129,4 +129,24 @@
       dingdan_jiage = #{dingdanJiage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectToDay" resultMap="BaseResultMap">
+    select
+      di.id,
+      di.dingdan_date,
+      di.dingdan_zhucai,
+      di.dingdan_qingcai,
+      di.dingdan_peicai,
+      di.dingdan_tangshui,
+      di.dingdan_user,
+      di.dingdan_jiage,
+      (SELECT  concat(z.name,' ',z.jiage,'元') from zhucai z where z.id  = di.dingdan_zhucai) zhucaiName,
+      (SELECT q.name  from qingcai q where q.id  = di.dingdan_qingcai) qingcaiName,
+      (SELECT p.name  from peicai p where p.id  = di.dingdan_peicai) peicaiName,
+      (SELECT  concat(t.name,' ',t.jiage,'元') from tangshui t where t.id  = di.dingdan_tangshui) tangshuiName
+    from
+        dingdan di
+    where
+        di.dingdan_user = #{userId,jdbcType=VARCHAR} and di.dingdan_date = #{date,jdbcType=DATE}
+    </select>
 </mapper>
