@@ -163,6 +163,11 @@ public class CaidanServiceImpl implements CaidanService {
         caidanMapper.insert(caidan);
     }
 
+    @Override
+    public int deleteCaidan() {
+        return caidanMapper.deleteCaidan();
+    }
+
     private String formatting(String[] cai) {
         if(cai != null && cai.length>0){
             StringBuilder stringBuilder = new StringBuilder();

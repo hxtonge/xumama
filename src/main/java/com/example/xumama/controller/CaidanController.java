@@ -73,5 +73,16 @@ public class CaidanController {
         return "caidan";
     }
 
+    /**
+     * 删除今日菜单,跳转到制作菜单页面
+     * @author zhangShun 2022/8/11
+     */
+    @PostMapping("deleteCaidan")
+    @SaCheckLogin
+    public String deleteCaidan(){
+        caidanService.deleteCaidan();
+        return "redirect:caidan";
+    }
+
     //删除菜单,添加各种小配菜
 }

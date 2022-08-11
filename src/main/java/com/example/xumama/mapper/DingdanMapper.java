@@ -32,4 +32,10 @@ public interface DingdanMapper {
      * @author zhangShun 2022/8/10
      */
     List<Dingdan> selectToDay(@Param("userId") String userId,@Param("date") Date date);
+
+    List<Dingdan> selectAllToDay();
+
+    String getLock();
+
+    void updateLock(@Param("isLock") String isLock);
 }

@@ -9,16 +9,22 @@
     <link rel="stylesheet" th:href="@{css/bootstrap-theme.min.css}">
 </head>
 <body>
+<div style="text-align:right">
+    <form method="POST">
+        <button type="submit" class="btn btn-Default" th:formaction="@{/logout}">注销登录</button>
+        <button type="submit" class="btn btn-Default" th:formaction="@{/updatePassword}">修改密码</button>
+    </form>
+</div>
 <h2 style="text-align:center">欢迎下单</h2>
 <div th:if="${isAdmin} == 'N'">
-    <div th:if="${announcement} != null">
-        <p th:text="${announcement}"></p>
+    <div style="text-align:center" th:if="${announcement} != null">
+        <h3 th:text="${announcement}"></h3>
     </div>
 </div>
 <div th:if="${announcement} == null">
     <form th:action="@{/addOrder}" method="POST">
         <div>
-            <select name="zhucai" class="form-select" aria-label="Default select example">
+            <select name="zhucai" class="form-control" aria-label="Default select example">
                 <option selected hidden disabled value="">选择主菜</option>
                 <option th:each="item:${zhucais}" th:value="${item.id}"
                         th:text="${item.name}">
@@ -26,7 +32,7 @@
             </select>
         </div>
         <div>
-            <select name="qingcai" class="form-select" aria-label="Default select example">
+            <select name="qingcai" class="form-control" aria-label="Default select example">
                 <option selected hidden disabled value="">选择青菜</option>
                 <option th:each="item:${qingcais}" th:value="${item.id}"
                         th:text="${item.name}">
@@ -34,7 +40,7 @@
             </select>
         </div>
         <div>
-            <select name="peicai" class="form-select" aria-label="Default select example">
+            <select name="peicai" class="form-control" aria-label="Default select example">
                 <option selected hidden disabled value="">选择配菜</option>
                 <option th:each="item:${peicais}" th:value="${item.id}"
                         th:text="${item.name}">
@@ -43,7 +49,7 @@
         </div>
         <div th:if="${tangshuis != null}">
             <div>
-                <select name="tangshui" class="form-select" aria-label="Default select example">
+                <select name="tangshui" class="form-control" aria-label="Default select example">
                     <option selected hidden disabled value="">选择糖水</option>
                     <option th:each="item:${tangshuis}" th:value="${item.id}"
                             th:text="${item.name}">
@@ -54,14 +60,17 @@
         <label>是否加辣
             <input type="checkbox" name="la" value="Y" text="加辣">
         </label>
-        <div style="text-align:center">
+        <div style="text-align:center" th:if="${lock=='N'}">
             <button type="submit" class="btn btn-primary">提交订单</button>
+        </div>
+        <div style="text-align:center" th:if="${lock=='Y'}">
+            <button type="button" disabled="disabled" class="btn btn-primary">订单已锁定</button>
         </div>
     </form>
 </div>
 </br>
 <div th:if="${dingdans != null && dingdans.size()>0}">
-    <h3 style="text-align:center">我的订单</h3>
+    <h3 class="bg-primary" style="text-align:center">我的订单</h3>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -79,7 +88,7 @@
                     <td th:text="${dingdan.qingcaiName}"></td>
                     <td th:text="${dingdan.peicaiName}"></td>
                     <td th:text="${dingdan.tangshuiName}"></td>
-                    <td th:text="${dingdan.tangshuiName}"></td>
+                    <td th:text="不加"></td>
                     <td>
                         <form th:action="@{/deleteOrder}" method="POST">
                             <input type="hidden" name="id" th:value="${dingdan.id}">
@@ -92,21 +101,49 @@
 </div>
 <div th:if="${isAdmin} == 'Y'">
     <div style="text-align:center" th:if="${announcement} != null">
-        <p>今日还未制定菜单,请使用菜单管理定制菜单</p>
+        <h3>今日还未制定菜单,请使用菜单管理定制菜单</h3>
     </div>
     <div style="text-align:center">
-        <form th:action="@{/caidan}" method="POST">
-            <button type="submit" class="btn btn-primary">菜单管理</button>
+        <form method="POST">
+            <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
         </form>
     </div>
-</div>
-<br>
-<div>
-    <form th:action="@{/logout}" method="POST">
-        <button type="submit" class="btn btn-primary">注销登录</button>
-    </form>
-    <form th:action="@{/updatePassword}" method="POST">
-        <button type="submit" class="btn btn-warning">修改密码</button>
+    <!--所有订单-->
+    <div th:if="${allDingdans != null && allDingdans.size()>0}">
+        <h3 class="bg-primary" style="text-align:center">今日所有订单</h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>下单人</th>
+                <th>主菜</th>
+                <th>青菜</th>
+                <th>配菜</th>
+                <th>糖水</th>
+                <th>是否加辣</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dingdan:${allDingdans}">
+                <td th:text="${dingdan.dingdanUserName}"></td>
+                <td th:text="${dingdan.zhucaiName}"></td>
+                <td th:text="${dingdan.qingcaiName}"></td>
+                <td th:text="${dingdan.peicaiName}"></td>
+                <td th:text="${dingdan.tangshuiName}"></td>
+                <td th:text="不加"></td>
+                <td>
+                    <form th:action="@{/deleteOrder}" method="POST">
+                        <input type="hidden" name="id" th:value="${dingdan.id}">
+                        <button type="submit" class="btn btn-danger">删除</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form method="POST">
+        <button type="submit" class="btn btn-success" th:formaction="@{/updatePassword}">复制订单信息</button>
+        <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" th:formaction="@{/updateLock}"></button>
     </form>
 </div>
 </body>

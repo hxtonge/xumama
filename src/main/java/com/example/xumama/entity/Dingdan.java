@@ -33,5 +33,7 @@ public class Dingdan {
 
     private String dingdanUser;
 
+    private String dingdanUserName;
+
     private Integer dingdanJiage;
 }

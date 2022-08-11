@@ -149,4 +149,33 @@
     where
         di.dingdan_user = #{userId,jdbcType=VARCHAR} and di.dingdan_date = #{date,jdbcType=DATE}
     </select>
+
+  <select id="selectAllToDay" resultMap="BaseResultMap">
+    select
+      di.id,
+      (select u.name from user u where di.dingdan_user = u.id) dingdan_user_name,
+      di.dingdan_date,
+      di.dingdan_zhucai,
+      di.dingdan_qingcai,
+      di.dingdan_peicai,
+      di.dingdan_tangshui,
+      di.dingdan_user,
+      di.dingdan_jiage,
+      (SELECT  concat(z.name,' ',z.jiage,'元') from zhucai z where z.id  = di.dingdan_zhucai) zhucaiName,
+      (SELECT q.name  from qingcai q where q.id  = di.dingdan_qingcai) qingcaiName,
+      (SELECT p.name  from peicai p where p.id  = di.dingdan_peicai) peicaiName,
+      (SELECT  concat(t.name,' ',t.jiage,'元') from tangshui t where t.id  = di.dingdan_tangshui) tangshuiName
+    from
+      dingdan di
+    where
+      di.dingdan_date = CURDATE()
+  </select>
+
+  <select id="getLock" resultType="java.lang.String">
+    select code_val from xumama_code xc where code_key = 'isLock'
+  </select>
+
+  <update id="updateLock">
+    UPDATE xumama_code set code_val = #{isLock} where code_key = 'isLock'
+  </update>
 </mapper>

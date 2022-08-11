@@ -25,4 +25,6 @@ public interface CaidanService {
     CaidanVo getAllCaidan();
 
     void addCaidan(String[] zhucai, String[] qingcai, String[] peicai, String[] tangshui);
+
+    int deleteCaidan();
 }

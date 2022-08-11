@@ -66,21 +66,34 @@ public class DingdanController {
             log.info("dingdans : {}",dingdans);
             model.addAttribute("dingdans",dingdans);
         }
+        //管理员加载所有订单
+        if(user != null && "Y".equals(user.getIsAdmin())){
+            List<Dingdan> allDingdans = dingdanService.getAllOrder();
+            model.addAttribute("allDingdans",allDingdans);
+        }
+        //查询订单锁
+        String lock = dingdanService.getLock();
+        model.addAttribute("lock",lock);
         return "order";
     }
     //下订单
     @RequestMapping("addOrder")
     @SaCheckLogin
-    public String addOrder(String zhucai,String qingcai,String peicai,String tangshui) throws Exception {
-        log.info("addOrder value : {},{},{},{}",zhucai,qingcai,peicai,tangshui);
-        Dingdan dingdan = new Dingdan();
-        dingdan.setDingdanZhucai(zhucai);
-        dingdan.setDingdanQingcai(qingcai);
-        dingdan.setDingdanPeicai(peicai);
-        dingdan.setDingdanTangshui(tangshui);
-         dingdanService.addOrder(dingdan);
-        return "redirect:order";
-
+    public String addOrder(Model model,String zhucai,String qingcai,String peicai,String tangshui) throws Exception {
+        String lock = dingdanService.getLock();
+        if("N".equals(lock)){
+            log.info("addOrder value : {},{},{},{}",zhucai,qingcai,peicai,tangshui);
+            Dingdan dingdan = new Dingdan();
+            dingdan.setDingdanZhucai(zhucai);
+            dingdan.setDingdanQingcai(qingcai);
+            dingdan.setDingdanPeicai(peicai);
+            dingdan.setDingdanTangshui(tangshui);
+            dingdanService.addOrder(dingdan);
+            return "redirect:order";
+        }else {
+            model.addAttribute("err_msg","订单已锁定,不允许下单!请联系管理员解锁");
+            return "error";
+        }
     }
     //删除订单
     @RequestMapping("deleteOrder")
@@ -89,6 +102,18 @@ public class DingdanController {
         dingdanService.deleteOrder(id);
         return "redirect:order";
 
+    }
+
+    @RequestMapping("updateLock")
+    @SaCheckLogin
+    public String updateLock(){
+        String isLock = dingdanService.getLock();
+        String lock = "Y";
+        if("Y".equals(isLock)){
+            lock = "N";
+        }
+        dingdanService.updateLock(lock);
+        return "redirect:order";
     }
     //导出今日账单
     //// TODO: 2022/8/9  判断管理员,判断是否已经存在订单 ,导出订单为可读信息

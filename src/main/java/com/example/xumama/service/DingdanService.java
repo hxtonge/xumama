@@ -24,4 +24,10 @@ public interface DingdanService {
     List<Dingdan> getDingdan();
 
     void deleteOrder(String id);
+
+    List<Dingdan> getAllOrder();
+
+    String getLock();
+
+    void updateLock(String lock);
 }

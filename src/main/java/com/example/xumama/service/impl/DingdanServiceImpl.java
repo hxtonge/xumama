@@ -77,7 +77,7 @@ public class DingdanServiceImpl implements DingdanService {
             dingdan.setDingdanJiage(zhucaiJiage+tangshuiJiage);
             dingdan.setDingdanDate(DateUtil.getDate());
             //添加用户
-            dingdan.setDingdanUser("zhangshun");
+            dingdan.setDingdanUser((String) StpUtil.getLoginId());
             //新增订单
             dingdanMapper.insert(dingdan);
             return true;
@@ -95,5 +95,20 @@ public class DingdanServiceImpl implements DingdanService {
     @Override
     public void deleteOrder(String id) {
         dingdanMapper.deleteByPrimaryKey(Integer.valueOf(id));
+    }
+
+    @Override
+    public List<Dingdan> getAllOrder() {
+        return dingdanMapper.selectAllToDay();
+    }
+
+    @Override
+    public String getLock() {
+        return dingdanMapper.getLock();
+    }
+
+    @Override
+    public void updateLock(String lock) {
+        dingdanMapper.updateLock(lock);
     }
 }
