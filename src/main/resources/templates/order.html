@@ -100,6 +100,39 @@
             </tbody>
         </table>
 </div>
+<!--所有订单-->
+<div th:if="${allDingdans != null && allDingdans.size()>0}">
+    <h3 class="bg-primary" style="text-align:center">今日所有订单</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>下单人</th>
+            <th>主菜</th>
+            <th>青菜</th>
+            <th>配菜</th>
+            <th>糖水</th>
+            <th>是否加辣</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dingdan:${allDingdans}">
+            <td th:text="${dingdan.dingdanUserName}"></td>
+            <td th:text="${dingdan.zhucaiName}"></td>
+            <td th:text="${dingdan.qingcaiName}"></td>
+            <td th:text="${dingdan.peicaiName}"></td>
+            <td th:text="${dingdan.tangshuiName}"></td>
+            <td th:text="不加"></td>
+            <td th:if="${isAdmin =='Y'}">
+                <form th:action="@{/deleteOrder}" method="POST">
+                    <input type="hidden" name="id" th:value="${dingdan.id}">
+                    <button type="submit" class="btn btn-danger">删除</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <div th:if="${isAdmin} == 'Y'">
     <div style="text-align:center" th:if="${announcement} != null">
         <h3>今日还未制定菜单,请使用菜单管理定制菜单</h3>
@@ -109,43 +142,18 @@
             <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
         </form>
     </div>
-    <!--所有订单-->
-    <div th:if="${allDingdans != null && allDingdans.size()>0}">
-        <h3 class="bg-primary" style="text-align:center">今日所有订单</h3>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>下单人</th>
-                <th>主菜</th>
-                <th>青菜</th>
-                <th>配菜</th>
-                <th>糖水</th>
-                <th>是否加辣</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="dingdan:${allDingdans}">
-                <td th:text="${dingdan.dingdanUserName}"></td>
-                <td th:text="${dingdan.zhucaiName}"></td>
-                <td th:text="${dingdan.qingcaiName}"></td>
-                <td th:text="${dingdan.peicaiName}"></td>
-                <td th:text="${dingdan.tangshuiName}"></td>
-                <td th:text="不加"></td>
-                <td>
-                    <form th:action="@{/deleteOrder}" method="POST">
-                        <input type="hidden" name="id" th:value="${dingdan.id}">
-                        <button type="submit" class="btn btn-danger">删除</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
     <form method="POST">
-        <button type="submit" class="btn btn-success" th:formaction="@{/updatePassword}">复制订单信息</button>
+        <input type="hidden" id="copyVal" th:value="${copyValue}"/>
+        <button type="button" class="btn btn-success" onclick="copyText()">复制订单信息</button>
         <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" th:formaction="@{/updateLock}"></button>
     </form>
 </div>
 </body>
+<script type="text/javascript">
+    function copyText() {
+        const input = document.getElementById("copyVal");
+        navigator.clipboard.writeText(input.value)
+        alert("复制订单信息成功");
+    }
+</script>
 </html>
