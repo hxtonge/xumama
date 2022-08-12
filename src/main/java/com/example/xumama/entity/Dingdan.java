@@ -38,4 +38,7 @@ public class Dingdan {
     private Integer dingdanJiage;
 
     private String jialaFlag;
+
+    private String dingdanCreatetime;
+
 }

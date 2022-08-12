@@ -112,6 +112,7 @@
             <th>配菜</th>
             <th>糖水</th>
             <th>是否加辣</th>
+            <th>下单时间</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -123,6 +124,7 @@
             <td th:text="${dingdan.peicaiName}"></td>
             <td th:text="${dingdan.tangshuiName}"></td>
             <td th:text="不加"></td>
+            <td th:text="${dingdan.dingdanCreatetime}"></td>
             <td th:if="${isAdmin =='Y'}">
                 <form th:action="@{/deleteOrder}" method="POST">
                     <input type="hidden" name="id" th:value="${dingdan.id}">
