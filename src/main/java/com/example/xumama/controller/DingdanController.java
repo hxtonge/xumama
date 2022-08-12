@@ -66,16 +66,36 @@ public class DingdanController {
             log.info("dingdans : {}",dingdans);
             model.addAttribute("dingdans",dingdans);
         }
-        //管理员加载所有订单
-        if(user != null && "Y".equals(user.getIsAdmin())){
-            List<Dingdan> allDingdans = dingdanService.getAllOrder();
-            model.addAttribute("allDingdans",allDingdans);
-        }
+        //加载所有订单
+        List<Dingdan> allDingdans = dingdanService.getAllOrder();
+        model.addAttribute("allDingdans",allDingdans);
+        String copyValue = generatorCopyVal(allDingdans);
+        model.addAttribute("copyValue",copyValue);
         //查询订单锁
         String lock = dingdanService.getLock();
         model.addAttribute("lock",lock);
         return "order";
     }
+
+    /**
+     * 生成复制信息
+     * @author zhangShun 2022/8/12
+     */
+    private String generatorCopyVal(List<Dingdan> allDingdans) {
+        StringBuilder stringBuilder = new StringBuilder("");
+        if(allDingdans != null && allDingdans.size()>0){
+            String h = "\n";
+            String k = " ";
+            for(Dingdan dingdan : allDingdans){
+                stringBuilder.append(dingdan.getZhucaiName()).append(k);
+                stringBuilder.append(dingdan.getQingcaiName()).append(k);
+                stringBuilder.append(dingdan.getPeicaiName()).append(k);
+                stringBuilder.append(dingdan.getTangshuiName()).append(k).append(h);
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     //下订单
     @RequestMapping("addOrder")
     @SaCheckLogin
