@@ -58,7 +58,8 @@
             </div>
         </div>
         <label>是否加辣
-            <input type="checkbox" name="la" value="Y" text="加辣">
+            <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value==1)?0:1 "/>
+            <input type="hidden" name="jialaFlag" value="0"/>
         </label>
         <div style="text-align:center" th:if="${lock=='N'}">
             <button type="submit" class="btn btn-primary">提交订单</button>
@@ -88,7 +89,7 @@
                     <td th:text="${dingdan.qingcaiName}"></td>
                     <td th:text="${dingdan.peicaiName}"></td>
                     <td th:text="${dingdan.tangshuiName}"></td>
-                    <td th:text="不加"></td>
+                    <td th:text="${dingdan.jialaFlag == '0'} ? '不加辣' : '加辣'"></td>
                     <td>
                         <form th:action="@{/deleteOrder}" method="POST">
                             <input type="hidden" name="id" th:value="${dingdan.id}">
