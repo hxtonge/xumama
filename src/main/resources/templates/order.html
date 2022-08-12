@@ -23,40 +23,103 @@
 </div>
 <div th:if="${announcement} == null">
     <form th:action="@{/addOrder}" method="POST">
+
         <div>
-            <select name="zhucai" class="form-control" aria-label="Default select example">
-                <option selected hidden disabled value="">选择主菜</option>
-                <option th:each="item:${zhucais}" th:value="${item.id}"
-                        th:text="${item.name}">
-                </option>
-            </select>
+            <p class="bg-primary" style="text-align:center">今日菜单如下</p>
+            <p class="bg-info" style="text-align:center">主菜</p>
+            <table class="table table-hover" style="text-align:center">
+                <thead>
+                <tr>
+                    <th style="width: 33%;text-align:center">菜名</th>
+                    <th style="width: 33%;text-align:center">价格</th>
+                    <th style="width: 33%;text-align:center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="zhucai:${zhucais}">
+                    <td th:text="${zhucai.name}"></td>
+                    <td th:text="${zhucai.jiage+'元'}"></td>
+                    <td>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="zhucai" th:value="${zhucai.id}">
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="bg-info" style="text-align:center">青菜</p>
+            <table class="table table-hover" style="text-align:center">
+                <thead>
+                <tr>
+                    <th style="width: 33%;text-align:center">菜名</th>
+                    <th style="width: 33%;text-align:center">价格</th>
+                    <th style="width: 33%;text-align:center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="qingcai:${qingcais}">
+                    <td th:text="${qingcai.name}"></td>
+                    <td>附赠</td>
+                    <td>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="qingcai" th:value="${qingcai.id}">
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="bg-info" style="text-align:center">配菜</p>
+            <table class="table table-hover" style="text-align:center">
+                <thead>
+                <tr>
+                    <th style="width: 33%;text-align:center">菜名</th>
+                    <th style="width: 33%;text-align:center">价格</th>
+                    <th style="width: 33%;text-align:center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="peicai:${peicais}">
+                    <td th:text="${peicai.name}"></td>
+                    <td>附赠</td>
+                    <td>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="peicai" th:value="${peicai.id}">
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="bg-info" style="text-align:center" th:if="${tangshuis != null}">糖水</p>
+            <table class="table table-hover" style="text-align:center" th:if="${tangshuis != null}">
+                <thead>
+                <tr>
+                    <th style="width: 33%;text-align:center">糖水名</th>
+                    <th style="width: 33%;text-align:center">价格</th>
+                    <th style="width: 33%;text-align:center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tangshui:${tangshuis}">
+                    <td th:text="${tangshui.name}"></td>
+                    <td th:text="${tangshui.jiage+'元'}"></td>
+                    <td>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="tangshui" th:value="${tangshui.id}">
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div>
-            <select name="qingcai" class="form-control" aria-label="Default select example">
-                <option selected hidden disabled value="">选择青菜</option>
-                <option th:each="item:${qingcais}" th:value="${item.id}"
-                        th:text="${item.name}">
-                </option>
-            </select>
-        </div>
-        <div>
-            <select name="peicai" class="form-control" aria-label="Default select example">
-                <option selected hidden disabled value="">选择配菜</option>
-                <option th:each="item:${peicais}" th:value="${item.id}"
-                        th:text="${item.name}">
-                </option>
-            </select>
-        </div>
-        <div th:if="${tangshuis != null}">
-            <div>
-                <select name="tangshui" class="form-control" aria-label="Default select example">
-                    <option selected hidden disabled value="">选择糖水</option>
-                    <option th:each="item:${tangshuis}" th:value="${item.id}"
-                            th:text="${item.name}">
-                    </option>
-                </select>
-            </div>
-        </div>
+
         <label>是否加辣
             <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value==1)?0:1 "/>
             <input type="hidden" name="jialaFlag" value="0"/>
