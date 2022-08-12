@@ -144,6 +144,9 @@
             <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
         </form>
     </div>
+
+    <button type="button" th:action="@{/total}">统计</button>
+
     <form method="POST">
         <input type="hidden" id="copyVal" th:value="${copyValue}"/>
         <button type="button" class="btn btn-success" onclick="copyText()">复制订单信息</button>

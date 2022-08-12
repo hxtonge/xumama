@@ -1,6 +1,7 @@
 package com.example.xumama.service;
 
 import com.example.xumama.entity.Dingdan;
+import com.example.xumama.entity.Total;
 
 import java.util.List;
 
@@ -30,4 +31,7 @@ public interface DingdanService {
     String getLock();
 
     void updateLock(String lock);
+
+    Total total();
+
 }

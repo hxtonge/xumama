@@ -4,7 +4,9 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.xumama.entity.Caidan;
 import com.example.xumama.entity.Dingdan;
+import com.example.xumama.entity.Total;
 import com.example.xumama.entity.User;
+import com.example.xumama.mapper.ZhucaiMapper;
 import com.example.xumama.service.CaidanService;
 import com.example.xumama.service.DingdanService;
 import com.example.xumama.vo.CaidanVo;
@@ -138,4 +140,14 @@ public class DingdanController {
     }
     //导出今日账单
     //// TODO: 2022/8/9  判断管理员,判断是否已经存在订单 ,导出订单为可读信息
+
+    // 订单统计  什么菜   多少份   总计价格    所有价格
+    @RequestMapping("total")
+    @SaCheckLogin
+    public String total(Model model){
+
+        return "redirect:order";
+    }
+
+
 }

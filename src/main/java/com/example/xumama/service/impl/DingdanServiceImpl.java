@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.example.xumama.entity.Dingdan;
 import com.example.xumama.entity.Tangshui;
+import com.example.xumama.entity.Total;
 import com.example.xumama.entity.Zhucai;
 import com.example.xumama.mapper.DingdanMapper;
 import com.example.xumama.mapper.TangshuiMapper;
@@ -110,5 +111,11 @@ public class DingdanServiceImpl implements DingdanService {
     @Override
     public void updateLock(String lock) {
         dingdanMapper.updateLock(lock);
+    }
+
+    @Override
+    public Total total() {
+
+        return null;
     }
 }
