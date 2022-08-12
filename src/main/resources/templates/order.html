@@ -106,7 +106,7 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>序号</th>
+            <th>#</th>
             <th>下单人</th>
             <th>主菜</th>
             <th>青菜</th>
@@ -116,8 +116,9 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody id="numTwo">
-        <tr th:each="dingdan:${allDingdans}">
+        <tbody>
+        <tr th:each="dingdan,itemStat:${allDingdans}">
+            <td th:text="${itemStat.count}"></td>
             <td th:text="${dingdan.dingdanUserName}"></td>
             <td th:text="${dingdan.zhucaiName}"></td>
             <td th:text="${dingdan.qingcaiName}"></td>
@@ -157,67 +158,6 @@
         const input = document.getElementById("copyVal");
         navigator.clipboard.writeText(input.value)
         alert("复制订单信息成功");
-    }
-
-    window.onload = function(){
-        var oTable = document.getElementById("numTwo");
-        for(var i=0;i<oTable.rows.length;i++){
-            oTable.rows[i].cells[0].innerHTML = (i+1);
-        }
-    }
-</script>
-
-<script type="text/javascript">
-    function checkAll(){
-        //获取编号前面的复选框
-        var checkAllEle = document.getElementById("box");
-        var idList = new Array();
-        //对编号前面复选框的状态进行判断
-        if(checkAllEle.checked==true){
-            //获取下面所有的复选框
-            var checkOnes = document.getElementsByName("checkOne");
-            //对获取的所有复选框进行遍历
-            for(var i=0;i<checkOnes.length;i++){
-                //拿到每一个复选框，并将其状态置为选中
-                checkOnes[i].checked=true;
-                idList.push(document.getElementsByName("id"));
-            }
-        }else{
-            //获取下面所有的复选框
-            var checkOnes = document.getElementsByName("checkOne");
-            //对获取的所有复选框进行遍历
-            for(var i=0;i<checkOnes.length;i++){
-                //拿到每一个复选框，并将其状态置为未选中
-                checkOnes[i].checked=false;
-            }
-        }
-        $('#deleteOrderList').val('idList');
-    }
-
-    function check(){
-        //1.获取编号前面的复选框
-        var checkOnes = document.getElementsByName("checkOne");
-        //2.设置一个计数器
-        var a=0;
-        //3.获取全选框的状态
-        var checkAllEle = document.getElementById("box");
-        //4.获取下面所有的复选框
-        for(var i=0;i<checkOnes.length;i++){
-            //5.如果复选框的状态是未选中
-            if(checkOnes[i].checked==false){
-                //6.设置全选框的状态为未选中
-                checkAllEle.checked=false;
-                //7.执行完毕关闭循环
-                break;
-            }
-            //8.如果循环条件不成立，计数器加一
-            a++;
-        }
-        //9.判断计数器是否与复选框的的数量相等
-        if(a==checkOnes.length){
-            //10.如果相等则设置全选框的状态为已选中
-            checkAllEle.checked=true;
-        }
     }
 </script>
 
