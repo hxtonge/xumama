@@ -99,7 +99,7 @@ public class DingdanController {
     //下订单
     @RequestMapping("addOrder")
     @SaCheckLogin
-    public String addOrder(Model model,String zhucai,String qingcai,String peicai,String tangshui) throws Exception {
+    public String addOrder(Model model,String zhucai,String qingcai,String peicai,String tangshui,String jialaFlag) throws Exception {
         String lock = dingdanService.getLock();
         if("N".equals(lock)){
             log.info("addOrder value : {},{},{},{}",zhucai,qingcai,peicai,tangshui);
@@ -108,6 +108,7 @@ public class DingdanController {
             dingdan.setDingdanQingcai(qingcai);
             dingdan.setDingdanPeicai(peicai);
             dingdan.setDingdanTangshui(tangshui);
+            dingdan.setJialaFlag(jialaFlag);
             dingdanService.addOrder(dingdan);
             return "redirect:order";
         }else {

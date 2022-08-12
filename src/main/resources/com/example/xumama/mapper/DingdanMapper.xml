@@ -12,6 +12,7 @@
     <result column="dingdan_tangshui" jdbcType="VARCHAR" property="dingdanTangshui" />
     <result column="dingdan_user" jdbcType="VARCHAR" property="dingdanUser" />
     <result column="dingdan_jiage" jdbcType="VARCHAR" property="dingdanJiage" />
+    <result column="dingdan_jialaFlag" jdbcType="VARCHAR" property="jialaFlag"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -34,10 +35,10 @@
     <!--@mbg.generated-->
     insert into dingdan (dingdan_date, dingdan_zhucai, dingdan_qingcai, 
       dingdan_peicai, dingdan_tangshui, dingdan_user, 
-      dingdan_jiage)
+      dingdan_jiage, dingdan_jialaFlag)
     values (#{dingdanDate,jdbcType=DATE}, #{dingdanZhucai,jdbcType=VARCHAR}, #{dingdanQingcai,jdbcType=VARCHAR}, 
       #{dingdanPeicai,jdbcType=VARCHAR}, #{dingdanTangshui,jdbcType=VARCHAR}, #{dingdanUser,jdbcType=VARCHAR}, 
-      #{dingdanJiage,jdbcType=VARCHAR})
+      #{dingdanJiage,jdbcType=VARCHAR}, #{jialaFlag,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.xumama.entity.Dingdan" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -143,7 +144,8 @@
       (SELECT  concat(z.name,' ',z.jiage,'元') from zhucai z where z.id  = di.dingdan_zhucai) zhucaiName,
       (SELECT q.name  from qingcai q where q.id  = di.dingdan_qingcai) qingcaiName,
       (SELECT p.name  from peicai p where p.id  = di.dingdan_peicai) peicaiName,
-      (SELECT  concat(t.name,' ',t.jiage,'元') from tangshui t where t.id  = di.dingdan_tangshui) tangshuiName
+      (SELECT  concat(t.name,' ',t.jiage,'元') from tangshui t where t.id  = di.dingdan_tangshui) tangshuiName,
+      di.dingdan_jialaFlag
     from
         dingdan di
     where

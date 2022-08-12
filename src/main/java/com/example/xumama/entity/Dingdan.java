@@ -36,4 +36,6 @@ public class Dingdan {
     private String dingdanUserName;
 
     private Integer dingdanJiage;
+
+    private String jialaFlag;
 }
