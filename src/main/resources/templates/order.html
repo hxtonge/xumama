@@ -143,6 +143,7 @@
                     <th>配菜</th>
                     <th>糖水</th>
                     <th>是否加辣</th>
+                    <th>订单总价</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -153,6 +154,7 @@
                     <td th:text="${dingdan.peicaiName}"></td>
                     <td th:text="${dingdan.tangshuiName}"></td>
                     <td th:text="${dingdan.jialaFlag == '0'} ? '不加辣' : '加辣'"></td>
+                    <td th:text="${dingdan.dingdanJiage}"></td>
                     <td>
                         <form th:action="@{/deleteOrder}" method="POST">
                             <input type="hidden" name="id" th:value="${dingdan.id}">
@@ -176,6 +178,7 @@
             <th>配菜</th>
             <th>糖水</th>
             <th>是否加辣</th>
+            <th>单条订单价</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -188,6 +191,7 @@
             <td th:text="${dingdan.peicaiName}"></td>
             <td th:text="${dingdan.tangshuiName}"></td>
             <td th:text="${dingdan.jialaFlag == '0'} ? '不加辣' : '加辣'">
+            <td th:text="${dingdan.dingdanJiage}"></td>
             <td th:if="${isAdmin =='Y'}">
                 <form th:action="@{/deleteOrder}" method="POST">
                     <input type="hidden" name="id" th:value="${dingdan.id}">
