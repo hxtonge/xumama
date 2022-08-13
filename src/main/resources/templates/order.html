@@ -118,12 +118,24 @@
                 </tr>
                 </tbody>
             </table>
+            <p class="bg-info" style="text-align:center">是否加辣</p>
+            <table class="table table-hover" style="text-align:center">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <label>加辣
+                                    <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value==1)?0:1 "/>
+                                    <input type="hidden" name="jialaFlag" value="0"/>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <label>是否加辣
-            <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value==1)?0:1 "/>
-            <input type="hidden" name="jialaFlag" value="0"/>
-        </label>
+
         <div style="text-align:center" th:if="${lock=='N'}">
             <button type="submit" class="btn btn-primary">提交订单</button>
         </div>
