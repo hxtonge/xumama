@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>订单详情</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{css/signin.css}">
+</head>
+<body>
+<div th:if="${orderInfos.size()>0}" th:each="orderInfo:${orderInfos}">
+    <div th:text="${orderInfo}"></div>
+</div>
+<div>
+    <form method="POST">
+        <div style="text-align:center">
+            <button type="submit" class="btn btn-primary" th:formaction="@{/order}" >回到首页</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

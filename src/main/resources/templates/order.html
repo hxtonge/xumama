@@ -15,7 +15,6 @@
         <button type="submit" class="btn btn-Default" th:formaction="@{/updatePassword}">修改密码</button>
     </form>
 </div>
-<h2 style="text-align:center">欢迎下单</h2>
 <div th:if="${isAdmin} == 'N'">
     <div style="text-align:center" th:if="${announcement} != null">
         <h3 th:text="${announcement}"></h3>
@@ -25,7 +24,7 @@
     <form th:action="@{/addOrder}" method="POST">
 
         <div>
-            <p class="bg-primary" style="text-align:center">今日菜单如下</p>
+            <h2 class="bg-primary" style="text-align:center">今 日 菜 单 如 下, 欢 迎 下 单 ~</h2>
             <p class="bg-info" style="text-align:center">主菜</p>
             <table class="table table-hover" style="text-align:center">
                 <thead>
@@ -145,11 +144,13 @@
     </form>
 </div>
 </br>
+<!--我的订单-->
 <div th:if="${dingdans != null && dingdans.size()>0}">
-    <h3 class="bg-primary" style="text-align:center">我的订单</h3>
+    <h3 class="bg-primary" style="text-align:center">我 的 订 单</h3>
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>主菜</th>
                     <th>青菜</th>
                     <th>配菜</th>
@@ -160,7 +161,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="dingdan:${dingdans}">
+                <tr th:each="dingdan,itemStat:${dingdans}">
+                    <td th:text="${itemStat.count}"></td>
                     <td th:text="${dingdan.zhucaiName}"></td>
                     <td th:text="${dingdan.qingcaiName}"></td>
                     <td th:text="${dingdan.peicaiName}"></td>
@@ -179,7 +181,7 @@
 </div>
 <!--所有订单-->
 <div th:if="${allDingdans != null && allDingdans.size()>0}">
-    <h3 class="bg-primary" style="text-align:center">今日所有订单</h3>
+    <h3 class="bg-primary" style="text-align:center">今 日 所 有 订 单</h3>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -190,7 +192,7 @@
             <th>配菜</th>
             <th>糖水</th>
             <th>是否加辣</th>
-            <th>单条订单价</th>
+            <th>订单总价</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -214,42 +216,18 @@
         </tbody>
     </table>
 </div>
-<div th:if="${isAdmin} == 'Y'">
-    <div style="text-align:center" th:if="${announcement} != null">
-        <h3>今日还未制定菜单,请使用菜单管理定制菜单</h3>
-    </div>
-    <div style="text-align:center">
-        <form method="POST">
-            <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
-        </form>
-    </div>
-    <div>
-    </div>
+<!--管理功能-->
+<div th:if="${isAdmin} == 'Y'" style="text-align:center">
+    <h3 class="bg-primary">管 理 功 能 </h3>
     <form method="POST">
-        <input type="hidden" id="copyVal" th:value="${copyValue}"/>
-        <button type="button" class="btn btn-success" onclick="copyText()">复制订单信息</button>
+        <div th:if="${announcement} != null">
+            <h3>今日还未制定菜单,请使用菜单管理定制菜单</h3>
+        </div>
+        <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
+        <button th:if="${allDingdans.size()>0}" type="submit" class="btn btn-success" th:formaction="@{/getOrderInfo}">订单详情</button>
         <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" th:formaction="@{/updateLock}"></button>
+        <button type="submit" th:disabled="${lock=='Y'?'false':'true'}" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" >摇号取餐</button>
     </form>
 </div>
-<div th:if="${isAdmin} == 'Y'">
-    <div style="text-align:center">
-        <form method="POST">
-            <div style="text-align:center" th:if="${lock=='Y'}">
-                <button type="submit" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" >摇号取餐</button>
-            </div>
-            <div style="text-align:center" th:if="${lock=='N'}">
-                <button type="submit" disabled="disabled" class="btn btn-primary">摇号取餐</button>
-            </div>
-        </form>
-    </div>
-</div>
 </body>
-<script type="text/javascript">
-    function copyText() {
-        const input = document.getElementById("copyVal");
-        navigator.clipboard.writeText(input.value)
-        alert("复制订单信息成功");
-    }
-</script>
-
 </html>

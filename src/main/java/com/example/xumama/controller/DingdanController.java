@@ -12,8 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,31 +71,43 @@ public class DingdanController {
         //加载所有订单
         List<Dingdan> allDingdans = dingdanService.getAllOrder();
         model.addAttribute("allDingdans",allDingdans);
-        String copyValue = generatorCopyVal(allDingdans);
-        model.addAttribute("copyValue",copyValue);
         //查询订单锁
         String lock = dingdanService.getLock();
         model.addAttribute("lock",lock);
         return "order";
     }
 
+    @PostMapping("getOrderInfo")
+    @SaCheckLogin
+    public String getOrderInfo(Model model){
+        //加载所有订单
+        List<Dingdan> allDingdans = dingdanService.getAllOrder();
+        List<String> orderInfos = generatorOrderInfo(allDingdans);
+        if(orderInfos.size()>0){
+            model.addAttribute("orderInfos",orderInfos);
+        }
+        return "orderInfo";
+    }
+
     /**
      * 生成复制信息
      * @author zhangShun 2022/8/12
      */
-    private String generatorCopyVal(List<Dingdan> allDingdans) {
-        StringBuilder stringBuilder = new StringBuilder("");
+    private List<String> generatorOrderInfo(List<Dingdan> allDingdans) {
+        List<String> orderInfos = new ArrayList<>();
         if(allDingdans != null && allDingdans.size()>0){
-            String h = "\n";
             String k = " ";
             for(Dingdan dingdan : allDingdans){
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(dingdan.getDingdanUserName()).append(k);
                 stringBuilder.append(dingdan.getZhucaiName()).append(k);
                 stringBuilder.append(dingdan.getQingcaiName()).append(k);
                 stringBuilder.append(dingdan.getPeicaiName()).append(k);
-                stringBuilder.append(dingdan.getTangshuiName()).append(k).append(h);
+                stringBuilder.append(dingdan.getTangshuiName()).append(k);
+                orderInfos.add(stringBuilder.toString());
             }
         }
-        return stringBuilder.toString();
+        return orderInfos;
     }
 
     //下订单
