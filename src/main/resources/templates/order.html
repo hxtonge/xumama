@@ -137,7 +137,7 @@
 
 
         <div style="text-align:center" th:if="${lock=='N'}">
-            <button type="submit" class="btn btn-primary">提交订单</button>
+            <button type="submit" class="btn btn-success">提交订单</button>
         </div>
         <div style="text-align:center" th:if="${lock=='Y'}">
             <button type="button" disabled="disabled" class="btn btn-primary">订单已锁定</button>
@@ -220,15 +220,19 @@
 <!--管理功能-->
 <div th:if="${isAdmin} == 'Y'" style="text-align:center">
     <h3 class="bg-primary">管 理 功 能 </h3>
+    <div style="height: 50px"></div>
     <form method="POST">
         <div th:if="${announcement} != null">
-            <h3>今日还未制定菜单,请使用菜单管理定制菜单</h3>
+            <h3>今日还未制定菜单!</h3>
+            <h3>为方便点餐!请使用下方菜单管理定制菜单!</h3>
+            <div style="height: 50px"></div>
         </div>
         <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
         <button th:if="${allDingdans.size()>0}" type="submit" class="btn btn-success" th:formaction="@{/getOrderInfo}">订单详情</button>
         <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" th:formaction="@{/updateLock}"></button>
-        <button type="submit" th:disabled="${lock=='Y'?'false':'true'}" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" >摇号取餐</button>
+        <button type="submit" th:disabled="${lock=='Y'?'false':'true'}" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" th:text="${lock=='Y'?'摇号取餐':'锁定订单后摇号'}" ></button>
     </form>
+    <div style="height: 50px"></div>
 </div>
 </body>
 </html>
