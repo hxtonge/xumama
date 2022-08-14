@@ -234,7 +234,12 @@
 <div th:if="${isAdmin} == 'Y'">
     <div style="text-align:center">
         <form method="POST">
-            <button type="submit" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" >摇号取餐</button>
+            <div style="text-align:center" th:if="${lock=='Y'}">
+                <button type="submit" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" >摇号取餐</button>
+            </div>
+            <div style="text-align:center" th:if="${lock=='N'}">
+                <button type="submit" disabled="disabled" class="btn btn-primary">摇号取餐</button>
+            </div>
         </form>
     </div>
 </div>
