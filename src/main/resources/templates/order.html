@@ -231,6 +231,13 @@
         <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" th:formaction="@{/updateLock}"></button>
     </form>
 </div>
+<div th:if="${isAdmin} == 'Y'">
+    <div style="text-align:center">
+        <form method="POST">
+            <button type="submit" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" >摇号取餐</button>
+        </form>
+    </div>
+</div>
 </body>
 <script type="text/javascript">
     function copyText() {
