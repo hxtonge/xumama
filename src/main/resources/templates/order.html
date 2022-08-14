@@ -118,12 +118,24 @@
                 </tr>
                 </tbody>
             </table>
+            <p class="bg-info" style="text-align:center">是否加辣</p>
+            <table class="table table-hover" style="text-align:center">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <label>加辣
+                                    <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value==1)?0:1 "/>
+                                    <input type="hidden" name="jialaFlag" value="0"/>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <label>是否加辣
-            <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value==1)?0:1 "/>
-            <input type="hidden" name="jialaFlag" value="0"/>
-        </label>
+
         <div style="text-align:center" th:if="${lock=='N'}">
             <button type="submit" class="btn btn-primary">提交订单</button>
         </div>
@@ -143,6 +155,7 @@
                     <th>配菜</th>
                     <th>糖水</th>
                     <th>是否加辣</th>
+                    <th>订单总价</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -153,6 +166,7 @@
                     <td th:text="${dingdan.peicaiName}"></td>
                     <td th:text="${dingdan.tangshuiName}"></td>
                     <td th:text="${dingdan.jialaFlag == '0'} ? '不加辣' : '加辣'"></td>
+                    <td th:text="${dingdan.dingdanJiage}"></td>
                     <td>
                         <form th:action="@{/deleteOrder}" method="POST">
                             <input type="hidden" name="id" th:value="${dingdan.id}">
@@ -169,23 +183,27 @@
     <table class="table table-hover">
         <thead>
         <tr>
+            <th>#</th>
             <th>下单人</th>
             <th>主菜</th>
             <th>青菜</th>
             <th>配菜</th>
             <th>糖水</th>
             <th>是否加辣</th>
+            <th>单条订单价</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="dingdan:${allDingdans}">
+        <tr th:each="dingdan,itemStat:${allDingdans}">
+            <td th:text="${itemStat.count}"></td>
             <td th:text="${dingdan.dingdanUserName}"></td>
             <td th:text="${dingdan.zhucaiName}"></td>
             <td th:text="${dingdan.qingcaiName}"></td>
             <td th:text="${dingdan.peicaiName}"></td>
             <td th:text="${dingdan.tangshuiName}"></td>
-            <td th:text="不加"></td>
+            <td th:text="${dingdan.jialaFlag == '0'} ? '不加辣' : '加辣'">
+            <td th:text="${dingdan.dingdanJiage}"></td>
             <td th:if="${isAdmin =='Y'}">
                 <form th:action="@{/deleteOrder}" method="POST">
                     <input type="hidden" name="id" th:value="${dingdan.id}">
@@ -205,11 +223,20 @@
             <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
         </form>
     </div>
+    <div>
+    </div>
     <form method="POST">
         <input type="hidden" id="copyVal" th:value="${copyValue}"/>
         <button type="button" class="btn btn-success" onclick="copyText()">复制订单信息</button>
         <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" th:formaction="@{/updateLock}"></button>
     </form>
+</div>
+<div th:if="${isAdmin} == 'Y'">
+    <div style="text-align:center">
+        <form method="POST">
+            <button type="submit" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" >摇号取餐</button>
+        </form>
+    </div>
 </div>
 </body>
 <script type="text/javascript">
@@ -219,4 +246,5 @@
         alert("复制订单信息成功");
     }
 </script>
+
 </html>
