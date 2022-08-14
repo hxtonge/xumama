@@ -11,6 +11,7 @@
 <body>
 <div style="text-align:right">
     <form method="POST">
+        <button type="button" class="btn btn-Default" th:text="${'欢迎您 ~ ' + username}"></button>
         <button type="submit" class="btn btn-Default" th:formaction="@{/logout}">注销登录</button>
         <button type="submit" class="btn btn-Default" th:formaction="@{/updatePassword}">修改密码</button>
     </form>

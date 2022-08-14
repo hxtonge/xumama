@@ -50,6 +50,7 @@ public class DingdanController {
         if(user != null){
             log.info("admin => to order");
             model.addAttribute("isAdmin",user.getIsAdmin());
+            model.addAttribute("username",user.getName());
         }
         CaidanVo caidanVo = caidanService.getCaidan();//获得今日菜单
         List<Dingdan> dingdans = dingdanService.getDingdan();//获得我的订单
