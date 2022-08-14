@@ -143,17 +143,10 @@ public class DingdanController {
     @RequestMapping("yaohaoqucan")
     @SaCheckLogin
     public String yaohaoqucan(Model model){
-        //查询订单锁
-        String lock = dingdanService.getLock();
-        if("N".equals(lock)){
-            model.addAttribute("err_msg","订单暂未锁定,待订单锁定后进行摇号取餐");
-            return "error";
-        } else {
-            //查询今日下单的所有用户
-            List<Dingdan> allDingdans = dingdanService.getAllOrder();
-            Set<String> allUsers = allDingdans.stream().map(Dingdan::getDingdanUserName).collect(Collectors.toSet());
-            model.addAttribute("todayAllUser", JSONUtil.toJsonStr(allUsers));
-            return "yaohaoqucan";
-        }
+        //查询今日下单的所有用户
+        List<Dingdan> allDingdans = dingdanService.getAllOrder();
+        Set<String> allUsers = allDingdans.stream().map(Dingdan::getDingdanUserName).collect(Collectors.toSet());
+        model.addAttribute("todayAllUser", JSONUtil.toJsonStr(allUsers));
+        return "yaohaoqucan";
     }
 }
