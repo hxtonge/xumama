@@ -10,6 +10,7 @@ public class XumamaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(XumamaApplication.class, args);
+        System.out.println("xumama run successful!!");
     }
 
 }
