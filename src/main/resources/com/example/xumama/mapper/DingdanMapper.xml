@@ -179,6 +179,17 @@
   <select id="getLock" resultType="java.lang.String">
     select code_val from xumama_code xc where code_key = 'isLock'
   </select>
+
+  <select id="getZhucaiInfoByToday" resultType="java.lang.Integer">
+    select
+      SUM(di.dingdan_jiage) jiage
+    from
+      dingdan di
+    where
+      di.dingdan_date = CURDATE()
+    GROUP BY di.dingdan_zhucai
+  </select>
+
   <update id="updateLock">
     UPDATE xumama_code set code_val = #{isLock} where code_key = 'isLock'
   </update>
