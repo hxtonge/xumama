@@ -35,10 +35,10 @@
     <!--@mbg.generated-->
     insert into dingdan (dingdan_date, dingdan_zhucai, dingdan_qingcai, 
       dingdan_peicai, dingdan_tangshui, dingdan_user, 
-      dingdan_jiage, dingdan_jialaFlag)
-    values (#{dingdanDate,jdbcType=DATE}, #{dingdanZhucai,jdbcType=VARCHAR}, #{dingdanQingcai,jdbcType=VARCHAR}, 
+      dingdan_jiage, dingdan_jialaFlag , dingdan_createtime)
+    values (#{dingdanDate,jdbcType=DATE}, #{dingdanZhucai,jdbcType=VARCHAR}, #{dingdanQingcai,jdbcType=VARCHAR},
       #{dingdanPeicai,jdbcType=VARCHAR}, #{dingdanTangshui,jdbcType=VARCHAR}, #{dingdanUser,jdbcType=VARCHAR}, 
-      #{dingdanJiage,jdbcType=VARCHAR}, #{jialaFlag,jdbcType=VARCHAR})
+      #{dingdanJiage,jdbcType=VARCHAR}, #{jialaFlag,jdbcType=VARCHAR} , date_format(NOW(),'%H:%i:%s'))
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.xumama.entity.Dingdan" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -164,6 +164,7 @@
       di.dingdan_tangshui,
       di.dingdan_user,
       di.dingdan_jiage,
+      di.dingdan_createtime ,
       (SELECT  concat(z.name,' ',z.jiage,'元') from zhucai z where z.id  = di.dingdan_zhucai) zhucaiName,
       (SELECT q.name  from qingcai q where q.id  = di.dingdan_qingcai) qingcaiName,
       (SELECT p.name  from peicai p where p.id  = di.dingdan_peicai) peicaiName,
