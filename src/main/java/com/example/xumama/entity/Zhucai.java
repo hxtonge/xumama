@@ -15,4 +15,7 @@ public class Zhucai {
     private String name;
 
     private String jiage;
+
+    private Integer fenshu;
+
 }

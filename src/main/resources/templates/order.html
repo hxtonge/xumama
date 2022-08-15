@@ -219,6 +219,24 @@
         </tr>
         </tbody>
     </table>
+
+    <tfoot>
+    <hr>
+    <tr>&nbsp;&nbsp;<h4 class="btn btn-success">总计如下 ：</h4></tr>
+    <br>
+    <tr th:each="zhucai:${totals.zhucaiList}">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <td th:text="${zhucai.name}"></td>
+        <td th:text="${zhucai.fenshu+' 份'}"></td>
+        <br>
+    </tr>
+    <br>
+    <tr>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <td th:text="${'总价： '+totals.zongjia+' 元'}"></td>
+    </tr>
+    </tfoot>
+
 </div>
 <div th:if="${isAdmin} == 'Y'">
     <div style="text-align:center" th:if="${announcement} != null">
@@ -229,8 +247,6 @@
             <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
         </form>
     </div>
-
-    <button type="button" th:action="@{/total}">统计</button>
 
     <form method="POST">
         <input type="hidden" id="copyVal" th:value="${copyValue}"/>

@@ -73,6 +73,10 @@ public class DingdanController {
         }
         //加载所有订单
         List<Dingdan> allDingdans = dingdanService.getAllOrder();
+        // 订单统计  什么菜   多少份   总计价格    所有价格
+        // 统计的数据
+        Total total = dingdanService.total();
+        model.addAttribute("totals" , total);
         model.addAttribute("allDingdans",allDingdans);
         String copyValue = generatorCopyVal(allDingdans);
         model.addAttribute("copyValue",copyValue);

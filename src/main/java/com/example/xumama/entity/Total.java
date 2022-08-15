@@ -7,9 +7,7 @@ import java.util.List;
 @Data
 public class Total {
 
-    private String caiming;
-
-    private Integer fenshu;
+    private List<Zhucai> zhucaiList;
 
     private Integer zongjia;
 
