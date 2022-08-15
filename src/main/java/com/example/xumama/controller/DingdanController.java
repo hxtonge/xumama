@@ -6,7 +6,6 @@ import cn.hutool.json.JSONUtil;
 import com.example.xumama.entity.Dingdan;
 import com.example.xumama.entity.Total;
 import com.example.xumama.entity.User;
-import com.example.xumama.mapper.ZhucaiMapper;
 import com.example.xumama.service.CaidanService;
 import com.example.xumama.service.DingdanService;
 import com.example.xumama.vo.CaidanVo;
@@ -73,13 +72,12 @@ public class DingdanController {
         }
         //加载所有订单
         List<Dingdan> allDingdans = dingdanService.getAllOrder();
-        // 订单统计  什么菜   多少份   总计价格    所有价格
+        model.addAttribute("allDingdans",allDingdans);
+        // 订单统计  什么菜   多少份   总计价格
         // 统计的数据
         Total total = dingdanService.total();
         model.addAttribute("totals" , total);
         model.addAttribute("allDingdans",allDingdans);
-        String copyValue = generatorCopyVal(allDingdans);
-        model.addAttribute("copyValue",copyValue);
         //查询订单锁
         String lock = dingdanService.getLock();
         model.addAttribute("lock",lock);
@@ -107,6 +105,8 @@ public class DingdanController {
         if(allDingdans != null && allDingdans.size()>0){
             String k = " ";
             for(Dingdan dingdan : allDingdans){
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(dingdan.getDingdanUserName()).append(k);
                 stringBuilder.append(dingdan.getZhucaiName()).append(k);
                 stringBuilder.append(dingdan.getQingcaiName()).append(k);
                 stringBuilder.append(dingdan.getPeicaiName()).append(k);
@@ -159,16 +159,6 @@ public class DingdanController {
     }
     //导出今日账单
     //// TODO: 2022/8/9  判断管理员,判断是否已经存在订单 ,导出订单为可读信息
-
-    // 订单统计  什么菜   多少份   总计价格    所有价格
-    @RequestMapping("total")
-    @SaCheckLogin
-    public String total(Model model){
-
-        return "redirect:order";
-    }
-
-
 
     //摇号取餐
     @RequestMapping("yaohaoqucan")
