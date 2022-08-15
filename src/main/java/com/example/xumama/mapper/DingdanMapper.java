@@ -38,4 +38,6 @@ public interface DingdanMapper {
     String getLock();
 
     void updateLock(@Param("isLock") String isLock);
+
+    List<Integer> getZhucaiInfoByToday();
 }

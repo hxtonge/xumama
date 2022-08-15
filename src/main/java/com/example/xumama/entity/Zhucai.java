@@ -14,8 +14,10 @@ public class Zhucai {
 
     private String name;
 
-    private String jiage;
+    private Integer jiage;
 
     private Integer fenshu;
+
+    private String jialaCount;
 
 }
