@@ -11,7 +11,7 @@
 <body>
 <div th:if="${hasCaidan} == 'Y'">
     <div>
-        <p class="bg-primary" style="text-align:center">今日菜单如下</p>
+        <h3 class="bg-primary" style="text-align:center">今 日 菜 单 如 下</h3>
         <p class="bg-info" style="text-align:center">主菜</p>
             <table class="table table-hover">
                 <thead>
@@ -75,8 +75,8 @@
     </form>
 </div>
 <div th:if="${hasCaidan} == 'N'">
-    <p class="bg-primary">请制定今日菜单</p>
-    <form th:action="@{/addCaidan}" method="POST">
+    <h3 style="text-align: center" class="bg-primary">请 制 定 今 日 菜 单</h3>
+    <form method="POST">
         <div>
             <p class="bg-info">勾选今日主菜</p>
             <ul class="list-inline">
@@ -115,7 +115,11 @@
                 </li>
             </ul>
         </div>
-        <button type="submit" class="btn btn-primary">确定</button>
+        <p class="text-danger">没有找到今天的菜品?试试下方的菜品管理</p>
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-default" th:formaction="@{/foodManagement}">菜品管理</button>
+            <button type="submit" class="btn btn-primary" th:formaction="@{/addCaidan}">确定菜单</button>
+        </div>
     </form>
 </div>
 </body>

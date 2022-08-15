@@ -47,26 +47,28 @@ public class CaidanController {
     @RequestMapping("caidan")
     @SaCheckLogin
     public String caidan(Model model){
-        CaidanVo caidanVo1 = caidanService.getAllCaidan();
-        CaidanVo caidanVo2 = caidanService.getCaidan();
-        if(caidanVo1 != null){
-            model.addAttribute("zhucais",caidanVo1.getZhucais());
-            model.addAttribute("qingcais",caidanVo1.getQingcais());
-            model.addAttribute("peicais",caidanVo1.getPeicais());
-            if(caidanVo1.getTangshuis() != null && caidanVo1.getTangshuis().size()>0){
-                model.addAttribute("tangshuis",caidanVo1.getTangshuis());
+        //所有菜单
+        CaidanVo caidan = caidanService.getAllCaidan();
+        //今日菜单
+        CaidanVo jinriCaidan = caidanService.getCaidan();
+        if(caidan != null){
+            model.addAttribute("zhucais",caidan.getZhucais());
+            model.addAttribute("qingcais",caidan.getQingcais());
+            model.addAttribute("peicais",caidan.getPeicais());
+            if(caidan.getTangshuis() != null && caidan.getTangshuis().size()>0){
+                model.addAttribute("tangshuis",caidan.getTangshuis());
             }
-            log.info("caidan => {}, caidan1 : {}", StpUtil.getLoginId(),caidanVo1);
+            log.info("caidan => {}, caidan : {}", StpUtil.getLoginId(),caidan);
         }
-        if(caidanVo2 != null){
+        if(jinriCaidan != null){
             model.addAttribute("hasCaidan","Y");
-            model.addAttribute("jinrizhucais",caidanVo2.getZhucais());
-            model.addAttribute("jinriqingcais",caidanVo2.getQingcais());
-            model.addAttribute("jinripeicais",caidanVo2.getPeicais());
-            if(caidanVo2.getTangshuis() != null && caidanVo2.getTangshuis().size()>0){
-                model.addAttribute("jinritangshuis",caidanVo2.getTangshuis());
+            model.addAttribute("jinrizhucais",jinriCaidan.getZhucais());
+            model.addAttribute("jinriqingcais",jinriCaidan.getQingcais());
+            model.addAttribute("jinripeicais",jinriCaidan.getPeicais());
+            if(jinriCaidan.getTangshuis() != null && jinriCaidan.getTangshuis().size()>0){
+                model.addAttribute("jinritangshuis",jinriCaidan.getTangshuis());
             }
-            log.info("caidan => {}, caidan2 : {}", StpUtil.getLoginId(),caidanVo2);
+            log.info("caidan => {}, jinriCaidan : {}", StpUtil.getLoginId(),jinriCaidan);
         }else {
             model.addAttribute("hasCaidan","N");
         }

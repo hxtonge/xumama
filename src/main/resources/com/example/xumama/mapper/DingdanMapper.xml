@@ -145,7 +145,8 @@
       (SELECT q.name  from qingcai q where q.id  = di.dingdan_qingcai) qingcaiName,
       (SELECT p.name  from peicai p where p.id  = di.dingdan_peicai) peicaiName,
       (SELECT  concat(t.name,' ',t.jiage,'元') from tangshui t where t.id  = di.dingdan_tangshui) tangshuiName,
-      di.dingdan_jialaFlag
+      di.dingdan_jialaFlag,
+      di.dingdan_jiage
     from
         dingdan di
     where
@@ -167,7 +168,8 @@
       (SELECT  concat(z.name,' ',z.jiage,'元') from zhucai z where z.id  = di.dingdan_zhucai) zhucaiName,
       (SELECT q.name  from qingcai q where q.id  = di.dingdan_qingcai) qingcaiName,
       (SELECT p.name  from peicai p where p.id  = di.dingdan_peicai) peicaiName,
-      (SELECT  concat(t.name,' ',t.jiage,'元') from tangshui t where t.id  = di.dingdan_tangshui) tangshuiName
+      (SELECT  concat(t.name,' ',t.jiage,'元') from tangshui t where t.id  = di.dingdan_tangshui) tangshuiName,
+      di.dingdan_jialaFlag
     from
       dingdan di
     where
@@ -177,7 +179,6 @@
   <select id="getLock" resultType="java.lang.String">
     select code_val from xumama_code xc where code_key = 'isLock'
   </select>
-
   <update id="updateLock">
     UPDATE xumama_code set code_val = #{isLock} where code_key = 'isLock'
   </update>

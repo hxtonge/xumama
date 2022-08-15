@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>菜品管理</title>
+    <script type="text/javascript" th:src="@{js/jquery-2.2.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{css/bootstrap-theme.min.css}">
+</head>
+<body>
+
+<div style="text-align: center">
+    <h2 class="bg-primary">菜 品 管 理</h2>
+
+    <div>
+        <h4 class="bg-info">主 菜 管 理</h4>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 25%">#</th>
+                <th style="width: 25%">菜名</th>
+                <th style="width: 25%">价格</th>
+                <th style="width: 25%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="zhucai,itemStat:${zhucais}">
+                <td th:text="${itemStat.count}"></td>
+                <td th:text="${zhucai.name}"></td>
+                <td th:text="${zhucai.jiage}"></td>
+                <td>
+                    <form th:action="@{/deleteZhuCai}" method="post">
+                        <input type="hidden" name="id" th:value="${zhucai.id}">
+                        <button type="submit" class="btn btn-danger">删除</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><p class="text-danger">找不到想要的菜?试试新增</p></td>
+                <td></td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#zhucaiModal">
+                        新增主菜
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="zhucaiModal" tabindex="-1" role="dialog" aria-labelledby="ZCModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="ZCModalLabel">主菜</h4>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="zhuCaiName">菜品名称</label>
+                                            <input type="text" class="form-control" id="zhuCaiName" name="name" placeholder="请输入菜名">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="zhuCaiJiaGe">菜品价格</label>
+                                            <input type="number" class="form-control" id="zhuCaiJiaGe" name="jiage" placeholder="请输入价格">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addZhuCai}" formmethod="post">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h4 class="bg-info">青 菜 管 理</h4>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 25%">#</th>
+                <th style="width: 25%">菜名</th>
+                <th style="width: 25%">价格</th>
+                <th style="width: 25%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="qingcai,itemStat:${qingcais}">
+                <td th:text="${itemStat.count}"></td>
+                <td th:text="${qingcai.name}"></td>
+                <td>附赠</td>
+                <td>
+                    <form th:action="@{/deleteQingCai}" method="POST">
+                        <input type="hidden" name="id" th:value="${qingcai.id}">
+                        <button type="submit" class="btn btn-danger">删除</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><p class="text-danger">找不到想要的菜?试试新增</p></td>
+                <td></td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#qingCaiModal">
+                        新增青菜
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="qingCaiModal" tabindex="-1" role="dialog" aria-labelledby="QCModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="QCModalLabel">青菜</h4>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="qingCaiName">菜品名称</label>
+                                            <input type="text" class="form-control" id="qingCaiName" name="name" placeholder="请输入菜名">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addQingCai}" formmethod="post">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h4 class="bg-info">配 菜 管 理</h4>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 25%">#</th>
+                <th style="width: 25%">菜名</th>
+                <th style="width: 25%">价格</th>
+                <th style="width: 25%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="peicai,itemStat:${peicais}">
+                <td th:text="${itemStat.count}"></td>
+                <td th:text="${peicai.name}"></td>
+                <td>附赠</td>
+                <td>
+                    <form th:action="@{/deletePeiCai}" method="POST">
+                        <input type="hidden" name="id" th:value="${peicai.id}">
+                        <button type="submit" class="btn btn-danger">删除</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><p class="text-danger">找不到想要的菜?试试新增</p></td>
+                <td></td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#peiCaiModal">
+                        新增配菜
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="peiCaiModal" tabindex="-1" role="dialog" aria-labelledby="PCModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="PCModalLabel">配菜</h4>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="peiCaiName">菜品名称</label>
+                                            <input type="text" class="form-control" id="peiCaiName" name="name" placeholder="请输入菜名">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addPeiCai}" formmethod="post">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${tangshuis.size()>0}">
+        <h4 class="bg-info">糖 水 管 理</h4>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 25%">#</th>
+                <th style="width: 25%">菜名</th>
+                <th style="width: 25%">价格</th>
+                <th style="width: 25%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tangshui,itemStat:${tangshuis}">
+                <td th:text="${itemStat.count}"></td>
+                <td th:text="${tangshui.name}"></td>
+                <td th:text="${tangshui.jiage}"></td>
+                <td>
+                    <form th:action="@{/deleteTangShui}" method="POST">
+                        <input type="hidden" name="id" th:value="${tangshui.id}">
+                        <button type="submit" class="btn btn-danger">删除</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><p class="text-danger">找不到想要的糖水?试试新增</p></td>
+                <td></td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#tangShuiModal">
+                        新增糖水
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="tangShuiModal" tabindex="-1" role="dialog" aria-labelledby="TSModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="TSModalLabel">糖水</h4>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="tangShuiName">糖水名称</label>
+                                            <input type="text" class="form-control" id="tangShuiName" name="name" placeholder="请输入菜名">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tangShuiJiaGe">糖水价格</label>
+                                            <input type="number" class="form-control" id="tangShuiJiaGe" name="jiage" placeholder="请输入价格">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addTangShui}" formmethod="post">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form method="POST">
+        <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >回到菜单</button>
+    </form>
+
+<!--    &lt;!&ndash;弹出框&ndash;&gt;-->
+<!--    <div class="container hidden" id="zhuCaiModal">-->
+<!--        hahahaha-->
+<!--    </div>-->
+
+
+</div>
+</body>
+<script>
+    // window.onload = function (){
+    //     document.getElementById("addZC").onclick = function() {
+    //         alert("登录功能未实现！");
+    //         document.getElementById("zhuCaiModal").className = 'container show';
+    //     }
+    // }
+
+
+    // $(document).ready(function() {
+    //     document.getElementById("addZC").onclick = function() {
+    //         alert("登录功能未实现！");
+    //
+    //         document.getElementById("zhuCaiModal").className = 'show'
+    //      //   $('#zhuCaiModal').modal('show');
+    //     }
+    //     // document.getElementById("loginModalYesId").onclick = function() {
+    //     //     $('#loginModalId').modal('hide');
+    //     //     alert("登录功能未实现！");
+    //     // }
+    // });
+</script>
+</html>
