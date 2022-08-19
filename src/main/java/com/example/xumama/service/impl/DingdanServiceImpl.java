@@ -51,11 +51,10 @@ public class DingdanServiceImpl implements DingdanService {
      *
      * @param dingdan 菜
      *
-     * @return 返回结果
      * @author zhangShun 2022/8/8
      */
     @Override
-    public boolean addOrder(Dingdan dingdan) throws Exception {
+    public void addOrder(Dingdan dingdan) throws Exception {
         //查询主菜和糖水价格
         Zhucai zhucai = zhucaiMapper.selectByPrimaryKey(Integer.parseInt(dingdan.getDingdanZhucai()));
         Tangshui tangshui = null;
@@ -74,7 +73,6 @@ public class DingdanServiceImpl implements DingdanService {
             dingdan.setDingdanUser((String) StpUtil.getLoginId());
             //新增订单
             dingdanMapper.insert(dingdan);
-            return true;
         }else {
             throw new Exception("菜品不存在");
         }

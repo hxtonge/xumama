@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,8 +12,8 @@
 <div style="text-align:right">
     <form method="POST">
         <button type="button" class="btn btn-Default" th:text="${'欢迎您 ~ ' + username}"></button>
-        <button type="submit" class="btn btn-Default" th:formaction="@{/logout}">注销登录</button>
-        <button type="submit" class="btn btn-Default" th:formaction="@{/updatePassword}">修改密码</button>
+        <button type="submit" class="btn btn-Default" data-th-formaction="@{/logout}">注销登录</button>
+        <button type="submit" class="btn btn-Default" data-th-formaction="@{/updatePassword}">修改密码</button>
     </form>
 </div>
 <div th:if="${isAdmin} == 'N'">
@@ -125,7 +125,7 @@
                         <td>
                             <div>
                                 <label>加辣
-                                    <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value==1)?0:1 "/>
+                                    <input type="checkbox" onchange="this.nextElementSibling.value = (this.nextElementSibling.value===1)?0:1 "/>
                                     <input type="hidden" name="jialaFlag" value="0"/>
                                 </label>
                             </div>
@@ -144,8 +144,7 @@
         </div>
     </form>
 </div>
-</br>
-<!--我的订单-->
+
 <div th:if="${dingdans != null && dingdans.size()>0}">
     <h3 class="bg-primary" style="text-align:center">我 的 订 单</h3>
         <table class="table table-hover">
@@ -173,7 +172,7 @@
                     <td>
                         <form>
                             <input type="hidden" name="id" th:value="${dingdan.id}">
-                            <button type="submit" th:disabled="${lock=='Y'?'true':'false'}" class="btn btn-primary" th:formmethod="POST" th:formaction="@{/deleteOrder}">删除</button>
+                            <button type="submit" th:disabled="${lock=='Y'?'true':'false'}" class="btn btn-primary" th:formmethod="POST" data-th-formaction="@{/deleteOrder}">删除</button>
                         </form>
                     </td>
                 </tr>
@@ -226,7 +225,7 @@
             <td th:if="${isAdmin =='Y'}">
                 <form>
                     <input type="hidden" name="id" th:value="${dingdan.id}">
-                    <button type="submit" th:disabled="${lock=='Y'?'true':'false'}" class="btn btn-primary" th:formmethod="POST" th:formaction="@{/deleteOrder}">删除</button>
+                    <button type="submit" th:disabled="${lock=='Y'?'true':'false'}" class="btn btn-primary" th:formmethod="POST" data-th-formaction="@{/deleteOrder}">删除</button>
                 </form>
             </td>
         </tr>
@@ -239,14 +238,9 @@
     </div>
     <div style="text-align:center">
         <form method="POST">
-            <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
+            <button type="submit" class="btn btn-primary" data-th-formaction="@{/caidan}" >菜单管理</button>
         </form>
     </div>
-
-    <form method="POST">
-        <input type="hidden" id="copyVal" th:value="${copyValue}"/>
-        <button type="button" class="btn btn-success" onclick="copyText()">复制订单信息</button>
-    </form>
 </div>
 <!--管理功能-->
 <div th:if="${isAdmin} == 'Y'" style="text-align:center">
@@ -258,10 +252,10 @@
             <h3>为方便点餐!请使用下方菜单管理定制菜单!</h3>
             <div style="height: 50px"></div>
         </div>
-        <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >菜单管理</button>
-        <button th:if="${allDingdans.size()>0}" type="submit" class="btn btn-success" th:formaction="@{/getOrderInfo}">订单详情</button>
-        <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" th:formaction="@{/updateLock}"></button>
-        <button type="submit" th:disabled="${lock=='Y'?'false':'true'}" class="btn btn-primary" th:formaction="@{/yaohaoqucan}" th:text="${lock=='Y'?'摇号取餐':'锁定订单后摇号'}" ></button>
+        <button type="submit" class="btn btn-primary" data-th-formaction="@{/caidan}" >菜单管理</button>
+        <button th:if="${allDingdans.size()>0}" type="submit" class="btn btn-success" data-th-formaction="@{/getOrderInfo}">订单详情</button>
+        <button type="submit" th:text="${lock=='Y'?'解锁订单':'锁定订单'}" th:class="${lock=='Y'?'btn btn-info':'btn btn-warning'}" data-th-formaction="@{/updateLock}"></button>
+        <button type="submit" th:disabled="${lock=='Y'?'false':'true'}" class="btn btn-primary" data-th-formaction="@{/yaohaoqucan}" th:text="${lock=='Y'?'摇号取餐':'锁定订单后摇号'}" ></button>
     </form>
     <div style="height: 50px"></div>
 </div>

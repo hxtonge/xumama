@@ -15,9 +15,9 @@ import java.util.List;
  */
 @Repository
 public interface DingdanMapper {
-    int deleteByPrimaryKey(Integer id);
+    void deleteByPrimaryKey(Integer id);
 
-    int insert(Dingdan record);
+    void insert(Dingdan record);
 
     int insertSelective(Dingdan record);
 

@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Repository
 public interface TangshuiMapper {
-    int deleteByPrimaryKey(Integer id);
+    void deleteByPrimaryKey(Integer id);
 
-    int insert(Tangshui record);
+    void insert(Tangshui record);
 
     int insertSelective(Tangshui record);
 

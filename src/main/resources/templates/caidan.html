@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,65 +13,65 @@
     <div>
         <h3 class="bg-primary" style="text-align:center">今 日 菜 单 如 下</h3>
         <p class="bg-info" style="text-align:center">主菜</p>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>菜名</th>
-                        <th>价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="zhucai:${jinrizhucais}">
-                        <td th:text="${zhucai.name}"></td>
-                        <td th:text="${zhucai.jiage+'元'}"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>菜名</th>
+                <th>价格</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="zhucai:${jinrizhucais}">
+                <td th:text="${zhucai.name}"></td>
+                <td th:text="${zhucai.jiage+'元'}"></td>
+            </tr>
+            </tbody>
+        </table>
         <p class="bg-info" style="text-align:center">青菜</p>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>菜名</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="qingcai:${jinriqingcais}">
-                    <td th:text="${qingcai.name}"></td>
-                </tr>
-                </tbody>
-            </table>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>菜名</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="qingcai:${jinriqingcais}">
+                <td th:text="${qingcai.name}"></td>
+            </tr>
+            </tbody>
+        </table>
         <p class="bg-info" style="text-align:center">配菜</p>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>菜名</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="peicai:${jinripeicais}">
-                        <td th:text="${peicai.name}"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>菜名</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="peicai:${jinripeicais}">
+                <td th:text="${peicai.name}"></td>
+            </tr>
+            </tbody>
+        </table>
         <p class="bg-info" style="text-align:center" th:if="${jinritangshuis != null}">糖水</p>
-            <table class="table table-hover" th:if="${jinritangshuis != null}">
-                <thead>
-                <tr>
-                    <th>糖水名</th>
-                    <th>价格</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="tangshui:${jinritangshuis}">
-                    <td th:text="${tangshui.name}"></td>
-                    <td th:text="${tangshui.jiage+'元'}"></td>
-                </tr>
-                </tbody>
-            </table>
+        <table class="table table-hover" th:if="${jinritangshuis != null}">
+            <thead>
+            <tr>
+                <th>糖水名</th>
+                <th>价格</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tangshui:${jinritangshuis}">
+                <td th:text="${tangshui.name}"></td>
+                <td th:text="${tangshui.jiage+'元'}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <form method="POST">
-        <button type="submit" th:formaction="@{/order}" class="btn btn-primary">去下单</button>
-        <button type="submit" th:formaction="@{/deleteCaidan}" class="btn btn-primary">重新制作菜单</button>
+        <button type="submit" data-th-formaction="@{/order}" class="btn btn-primary">去下单</button>
+        <button type="submit" data-th-formaction="@{/deleteCaidan}" class="btn btn-primary">重新制作菜单</button>
     </form>
 </div>
 <div th:if="${hasCaidan} == 'N'">
@@ -81,44 +81,52 @@
             <p class="bg-info">勾选今日主菜</p>
             <ul class="list-inline">
                 <li th:each="zs:${zhucais}">
-                    <input type="checkbox"
-                           name="zhucai"
-                           th:value="${zs.id}"
-                           th:text="${zs.name+' '+zs.jiage+'元'}"/>
+                    <label>
+                        <input type="checkbox"
+                               name="zhucai"
+                               th:value="${zs.id}"
+                               th:text="${zs.name+' '+zs.jiage+'元'}"/>
+                    </label>
                 </li>
             </ul>
             <p class="bg-info">勾选今日青菜</p>
             <ul class="list-inline">
                 <li th:each="qc:${qingcais}">
-                    <input type="checkbox"
-                           name="qingcai"
-                           th:value="${qc.id}"
-                           th:text="${qc.name}"/>
+                    <label>
+                        <input type="checkbox"
+                               name="qingcai"
+                               th:value="${qc.id}"
+                               th:text="${qc.name}"/>
+                    </label>
                 </li>
             </ul>
             <p class="bg-info">勾选今日配菜</p>
             <ul class="list-inline">
                 <li th:each="pc:${peicais}">
-                    <input type="checkbox"
-                           name="peicai"
-                           th:value="${pc.id}"
-                           th:text="${pc.name}"/>
+                    <label>
+                        <input type="checkbox"
+                               name="peicai"
+                               th:value="${pc.id}"
+                               th:text="${pc.name}"/>
+                    </label>
                 </li>
             </ul>
             <p class="bg-info">勾选今日糖水</p>
             <ul class="list-inline">
                 <li th:each="ts:${tangshuis}">
-                    <input type="checkbox"
-                           name="tangshui"
-                           th:value="${ts.id}"
-                           th:text="${ts.name+' '+ts.jiage+'元'}"/>
+                    <label>
+                        <input type="checkbox"
+                               name="tangshui"
+                               th:value="${ts.id}"
+                               th:text="${ts.name+' '+ts.jiage+'元'}"/>
+                    </label>
                 </li>
             </ul>
         </div>
         <p class="text-danger">没有找到今天的菜品?试试下方的菜品管理</p>
         <div style="text-align: center">
-            <button type="submit" class="btn btn-default" th:formaction="@{/foodManagement}">菜品管理</button>
-            <button type="submit" class="btn btn-primary" th:formaction="@{/addCaidan}">确定菜单</button>
+            <button type="submit" class="btn btn-default" data-th-formaction="@{/foodManagement}">菜品管理</button>
+            <button type="submit" class="btn btn-primary" data-th-formaction="@{/addCaidan}">确定菜单</button>
         </div>
     </form>
 </div>

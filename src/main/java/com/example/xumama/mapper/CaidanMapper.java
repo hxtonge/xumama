@@ -3,8 +3,6 @@ package com.example.xumama.mapper;
 import com.example.xumama.entity.Caidan;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-
 /**
  *  CaidanMapper
  *
@@ -13,7 +11,7 @@ import java.util.Date;
  */
 @Repository
 public interface CaidanMapper {
-    int insert(Caidan record);
+    void insert(Caidan record);
 
     int insertSelective(Caidan record);
 

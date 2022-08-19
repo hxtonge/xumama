@@ -17,10 +17,10 @@ public interface DingdanService {
      * 新增订单
      *
      * @param dingdan 描述
-     * @return 返回结果
+     *
      * @author zhangShun 2022/8/8
      */
-    boolean addOrder(Dingdan dingdan) throws Exception;
+    void addOrder(Dingdan dingdan) throws Exception;
 
     List<Dingdan> getDingdan();
 

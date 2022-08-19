@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Repository
 public interface QingcaiMapper {
-    int deleteByPrimaryKey(Integer id);
+    void deleteByPrimaryKey(Integer id);
 
-    int insert(Qingcai record);
+    void insert(Qingcai record);
 
     int insertSelective(Qingcai record);
 

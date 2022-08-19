@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Repository
 public interface PeicaiMapper {
-    int deleteByPrimaryKey(Integer id);
+    void deleteByPrimaryKey(Integer id);
 
-    int insert(Peicai record);
+    void insert(Peicai record);
 
     int insertSelective(Peicai record);
 

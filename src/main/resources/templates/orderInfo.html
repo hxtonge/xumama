@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
 <div>
     <form method="POST">
         <div style="text-align:center">
-            <button type="submit" class="btn btn-primary" th:formaction="@{/order}" >回到首页</button>
+            <button type="submit" class="btn btn-primary" data-th-formaction="@{/order}" >回到首页</button>
         </div>
     </form>
 </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addZhuCai}" formmethod="post">提交</button>
+                                        <button type="submit" class="btn btn-primary" data-th-formaction="@{/addZhuCai}" formmethod="post">提交</button>
                                     </div>
                                 </form>
                             </div>
@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addQingCai}" formmethod="post">提交</button>
+                                        <button type="submit" class="btn btn-primary" data-th-formaction="@{/addQingCai}" formmethod="post">提交</button>
                                     </div>
                                 </form>
                             </div>
@@ -190,7 +190,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addPeiCai}" formmethod="post">提交</button>
+                                        <button type="submit" class="btn btn-primary" data-th-formaction="@{/addPeiCai}" formmethod="post">提交</button>
                                     </div>
                                 </form>
                             </div>
@@ -255,7 +255,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                        <button type="submit" class="btn btn-primary" th:formaction="@{/addTangShui}" formmethod="post">提交</button>
+                                        <button type="submit" class="btn btn-primary" data-th-formaction="@{/addTangShui}" formmethod="post">提交</button>
                                     </div>
                                 </form>
                             </div>
@@ -267,37 +267,8 @@
         </table>
     </div>
     <form method="POST">
-        <button type="submit" class="btn btn-primary" th:formaction="@{/caidan}" >回到菜单</button>
+        <button type="submit" class="btn btn-primary" data-th-formaction="@{/caidan}" >回到菜单</button>
     </form>
-
-<!--    &lt;!&ndash;弹出框&ndash;&gt;-->
-<!--    <div class="container hidden" id="zhuCaiModal">-->
-<!--        hahahaha-->
-<!--    </div>-->
-
-
 </div>
 </body>
-<script>
-    // window.onload = function (){
-    //     document.getElementById("addZC").onclick = function() {
-    //         alert("登录功能未实现！");
-    //         document.getElementById("zhuCaiModal").className = 'container show';
-    //     }
-    // }
-
-
-    // $(document).ready(function() {
-    //     document.getElementById("addZC").onclick = function() {
-    //         alert("登录功能未实现！");
-    //
-    //         document.getElementById("zhuCaiModal").className = 'show'
-    //      //   $('#zhuCaiModal').modal('show');
-    //     }
-    //     // document.getElementById("loginModalYesId").onclick = function() {
-    //     //     $('#loginModalId').modal('hide');
-    //     //     alert("登录功能未实现！");
-    //     // }
-    // });
-</script>
 </html>

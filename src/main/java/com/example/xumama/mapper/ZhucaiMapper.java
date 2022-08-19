@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Repository
 public interface ZhucaiMapper {
-    int deleteByPrimaryKey(Integer id);
+    void deleteByPrimaryKey(Integer id);
 
-    int insert(Zhucai record);
+    void insert(Zhucai record);
 
     int insertSelective(Zhucai record);
 
